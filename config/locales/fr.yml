@@ -3,9 +3,15 @@ fr:
   create_account: 'Créer un compte'
   home: acceuil
   signup: s'enregister
-  account_created: Votre compte à été créer 
+  account_created: Votre compte à été créer
   attributes:
     password: Mot de passe
+
+  log_in:
+    title: Connexion
+    incorrect_username_or_password: Nom d'utilisateur ou mot de passe incorrecte
+  logout:
+    title: Déconnexion
 
   errors:
     format: "%{message}"

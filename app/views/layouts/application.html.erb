@@ -26,9 +26,7 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <%= link_to t('signup').capitalize, signup_url, class: 'nav-link' %>
-          </li>
+          <%= render 'shared/session_menu' %>
         </ul>
       </div>
     </nav>
@@ -41,3 +39,4 @@
     </div>
   </body>
 </html>
+<%= debug(params) if Rails.env.development? %>

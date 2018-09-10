@@ -8,16 +8,13 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to root_path
     else
-      flash[:danger] = I18n.t 'log_in.incorrect_username_or_password'
+      flash[:danger] = 'Incorrect username or password'
       render 'new'
     end
   end
 
   def destroy
-    if logged_in?
-      session.delete :user_id
-      current_user = nil
-    end
+    log_out
     redirect_to root_path
   end
 end

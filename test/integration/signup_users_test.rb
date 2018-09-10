@@ -32,7 +32,7 @@ class SignupUsersTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
     follow_redirect!
     user = User.find_by(username: @user.username)
-    assert user.basic?
+    assert user.role == "basic"
     assert_not flash[:success].nil?
     assert_select 'div.alert-success'
   end

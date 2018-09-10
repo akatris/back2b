@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+  before_action :account_owner, only: [:show]
+
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
   end
@@ -8,10 +14,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new user_params
     @user.role = "basic"
     if @user.save
-      flash[:success] = I18n.t('account_created')
+      flash[:success] = 'Account created'
       redirect_to root_url
     else
       render 'new'
@@ -22,5 +28,10 @@ class UsersController < ApplicationController
     def user_params
         params.require(:user)
           .permit(:username, :password, :password_confirmation)
+    end
+
+    def account_owner
+      user = User.find(params[:id])
+      redirect_to user_path(user) unless current_user.id == user.id || admin?
     end
 end

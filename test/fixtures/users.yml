@@ -1,6 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 admin:
+  id: 1
   username: admin
-  role: 0
   password_digest: <%= User.digest('password') %>
+  role: admin
+
+basic_user:
+  id: 2
+  username: basic
+  password_digest: <%= User.digest('password') %>
+  role: basic
+
+another_user:
+  id: 3
+  username: another
+  password_digest: <%= User.digest('password') %>
+  role: basic

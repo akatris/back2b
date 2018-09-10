@@ -1,4 +1,4 @@
-<h1><%= t 'log_in.title' %></h1>
+<h1>Log in</h1>
 
 <%= form_for :session do |f| %>
   <div class="form-group">
@@ -11,5 +11,5 @@
     <%= f.text_field :password, class: 'form-control' %>
   </div>
 
-  <%= f.submit t('log_in.title'), class: 'btn btn-primary' %>
+  <%= f.submit 'Log in', class: 'btn btn-primary' %>
 <% end %>

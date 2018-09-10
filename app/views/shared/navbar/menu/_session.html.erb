@@ -1,14 +1,28 @@
 <ul class="navbar-nav ml-auto">
   <% if logged_in? %>
     <li class="nav-item">
-      <%= link_to t('logout.title').capitalize, logout_path, method: :delete, class: 'nav-link' %>
     </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle"
+          href="#" id="sessionDropdown" role="button"
+          data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Account
+        </a>
+        <div class="dropdown-menu" aria-labelledby="sessionDropdown">
+          <%= link_to 'Profile', user_path(current_user),
+            class: 'dropdown-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Log out', logout_path,
+            method: :delete, class: 'dropdown-item' %>
+        </div>
+      </li>
   <% else %>
     <li class="nav-item">
-      <%= link_to t('signup').capitalize, signup_url, class: 'nav-link' %>
+      <%= link_to 'Sign up', signup_url, class: 'nav-link' %>
     </li>
     <li class="nav-item">
-      <%= link_to t('log_in.title').capitalize, login_url, class: 'nav-link' %>
+      <%= link_to 'Log in', login_url, class: 'nav-link' %>
     </li>
   <% end %>
 </ul>

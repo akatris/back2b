@@ -1,4 +1,4 @@
-<h1 class="center"><%= t 'create_account' %></h1>
+<h1 class="center">Create account</h1>
 <%= form_for @user, url: signup_path do |f| %>
   <%= render 'shared/error_messages' %>
   <div class="form-group">
@@ -16,5 +16,5 @@
     <%= f.password_field :password_confirmation, class: 'form-control' %>
   </div>
 
-  <%= f.submit "Créer mon compte", class: 'btn btn-primary' %>
+  <%= f.submit "Create my account", class: 'btn btn-primary' %>
 <% end %>

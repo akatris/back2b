@@ -20,6 +20,9 @@ class LogInUsersTest < ActionDispatch::IntegrationTest
         password: 'password'
         }
       }
-    assert_redirected_to root_url
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_select "a[href=?]", logout_path
   end
+
 end

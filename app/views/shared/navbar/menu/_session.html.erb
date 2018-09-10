@@ -1,0 +1,14 @@
+<ul class="navbar-nav ml-auto">
+  <% if logged_in? %>
+    <li class="nav-item">
+      <%= link_to t('logout.title').capitalize, logout_path, method: :delete, class: 'nav-link' %>
+    </li>
+  <% else %>
+    <li class="nav-item">
+      <%= link_to t('signup').capitalize, signup_url, class: 'nav-link' %>
+    </li>
+    <li class="nav-item">
+      <%= link_to t('log_in.title').capitalize, login_url, class: 'nav-link' %>
+    </li>
+  <% end %>
+</ul>

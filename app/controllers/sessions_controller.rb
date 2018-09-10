@@ -12,4 +12,12 @@ class SessionsController < ApplicationController
       render 'new'
     end
   end
+
+  def destroy
+    if logged_in?
+      session.delete :user_id
+      current_user = nil
+    end
+    redirect_to root_path
+  end
 end

@@ -25,6 +25,7 @@ fr:
               blank: un mot de passe est requis
               too_short: un mot de passe doit contenir au moins 6 caractères
             username:
+              taken: ce nom d'utilisateur est déja pris, choisissez un autre
               blank: un nom d'utilisateur est requis
               too_short: un nom d'utilisateur doit contenir au moins 3 caractères
             password_confirmation:

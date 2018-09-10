@@ -3,7 +3,6 @@ require 'test_helper'
 class SignupUsersTest < ActionDispatch::IntegrationTest
   def setup
     @user = User.new username: 'sitraka',
-                    email: 'ratsimbasitraka@gmail.com',
                     password: 'password',
                     password_confirmation: 'password'
   end
@@ -12,7 +11,6 @@ class SignupUsersTest < ActionDispatch::IntegrationTest
   test "Should render new on error" do
     @user.username = ''
     post signup_url, params: { user: {username: @user.username,
-                                    email: @user.email,
                                     password: 'password',
                                     password_confirmation: 'password'}}
     assert_template 'users/new'
@@ -24,7 +22,6 @@ class SignupUsersTest < ActionDispatch::IntegrationTest
     get signup_url
     assert_difference 'User.count' do
       post signup_url, params: {user: {username: @user.username,
-        email: @user.email,
         password: 'password',
         password_confirmation: 'password'}}
     end

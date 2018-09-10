@@ -3,7 +3,6 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new username: 'sitraka',
-                    email: 'ratsimbasitraka@gmail.com',
                     password: 'password',
                     password_confirmation: 'password'
   end
@@ -39,5 +38,11 @@ class UserTest < ActiveSupport::TestCase
   test "password_confirmation is required" do
     @user.password_confirmation = ' '
     assert_not @user.valid?
+  end
+
+  test "username should be unique" do
+    new_user = @user.clone
+    @user.save
+    assert_not new_user.valid?
   end
 end

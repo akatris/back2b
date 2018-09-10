@@ -4,11 +4,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find params[:id]
+    @user = User.find(params[:id])
   end
 
   def create
-    @user = User.new user_params
+    @user = User.new(user_params)
+    @user.role = "basic"
     if @user.save
       flash[:success] = I18n.t('account_created')
       redirect_to root_url

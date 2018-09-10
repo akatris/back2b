@@ -10,9 +10,13 @@ class SignupUsersTest < ActionDispatch::IntegrationTest
 
   test "Should render new on error" do
     @user.username = ''
-    post signup_url, params: { user: {username: @user.username,
-                                    password: 'password',
-                                    password_confirmation: 'password'}}
+    post signup_url, params: {
+      user: {
+        username: @user.username,
+        password: 'password',
+        password_confirmation: 'password'
+        }
+      }
     assert_template 'users/new'
     assert_select 'div.error_message'
     assert_select 'ul.error_detail'
@@ -27,6 +31,8 @@ class SignupUsersTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to root_url
     follow_redirect!
+    user = User.find_by(username: @user.username)
+    assert user.basic?
     assert_not flash[:success].nil?
     assert_select 'div.alert-success'
   end

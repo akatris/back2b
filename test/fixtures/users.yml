@@ -2,4 +2,5 @@
 
 admin:
   username: admin
+  role: 0
   password_digest: <%= User.digest('password') %>

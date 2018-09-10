@@ -1,0 +1,25 @@
+fr:
+  hello: 'Bonjour!'
+  create_account: 'Créer un compte'
+  home: acceuil
+  signup: s'enregister
+  account_created: Votre compte à été créer 
+  attributes:
+    password: Mot de passe
+
+  errors:
+    format: "%{message}"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              blank: un mot de passe est requis
+              too_short: un mot de passe doit contenir au moins 6 caractères
+            username:
+              blank: un nom d'utilisateur est requis
+              too_short: un nom d'utilisateur doit contenir au moins 3 caractères
+            password_confirmation:
+              confirmation: confiramtion du mot de passe incorrect

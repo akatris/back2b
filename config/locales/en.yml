@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  create_account: "Create account"
+  home: acceuil
+  signup: Register

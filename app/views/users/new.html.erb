@@ -1,0 +1,28 @@
+<h1 class="center"><%= t 'create_account' %></h1>
+<%= form_for @user, url: signup_path do |f| %>
+  <% if @user.errors.any? %>
+    <div class="error_message alert alert-danger">
+      <%= flash[:error] %>
+      <ul class="error_detail">
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :username %>
+    <%= f.text_field :username, class:'form-control' %>
+  </div>
+
+  <%= f.label :email %>
+  <%= f.email_field :email, class: 'form-control' %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password, class: 'form-control' %>
+
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+  <%= f.submit "Créer mon compte", class: 'btn btn-primary' %>
+<% end %>

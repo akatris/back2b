@@ -13,11 +13,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get index" do
-    get users_path
-    assert_response :success
-  end
-
   test "account owner can view profile" do
     log_in_as @basic_user
     get user_path(@basic_user)
@@ -34,5 +29,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     log_in_as @basic_user
     get user_path(@another_user)
     assert_redirected_to user_path(@another_user)
+  end
+
+  test "only admin should view the users list" do
+    log_in_as @admin
+    get users_path
+    assert_response :success
+  end
+
+  test "non admin should not view users list" do
+    log_in_as @basic_user
+    get users_path
+    assert_redirected_to root_path
   end
 end

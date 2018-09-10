@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :account_owner, only: [:show]
+  before_action :admin_only, only: [:index]
 
   def index
     @users = User.all
@@ -33,5 +34,9 @@ class UsersController < ApplicationController
     def account_owner
       user = User.find(params[:id])
       redirect_to user_path(user) unless current_user.id == user.id || admin?
+    end
+
+    def admin_only
+      redirect_to root_path unless admin?
     end
 end

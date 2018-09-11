@@ -26,8 +26,7 @@ module SessionsHelper
     logged_in? && current_user.admin?
   end
 
-  def own_account?
-    user = User.find params[:id]
+  def own_account?(user)
     current_user.id == user.id
   end
 end

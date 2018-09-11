@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       user = User.find(params[:id])
       if !admin?
         redirect_to root_path
-      elsif own_account?
+      elsif own_account?(user)
         redirect_to users_path
       end
     end

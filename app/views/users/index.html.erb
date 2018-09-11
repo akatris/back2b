@@ -15,8 +15,11 @@
         <td><%= user.role %></td>
         <td>
           <%= link_to 'detail', user_path(user) %> |
-          <%= link_to 'edit', '#' %> |
-          <%= link_to 'delete', user_path(user), method: :delete %>
+          <%= link_to 'edit', '#' %>
+          <% if admin? && !own_account?(user) %>
+           |
+            <%= link_to 'delete', user_path(user), method: :delete %>
+          <% end %>
         </td>
       </tr>
     <% end %>

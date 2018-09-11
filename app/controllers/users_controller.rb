@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :account_owner, only: [:show]
   before_action :admin_only, only: [:index]
+  before_action :account_owner, only: [:show]
+  before_action :own_account_and_admin, only: [:destroy]
 
   def index
     @users = User.all
@@ -25,6 +26,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    user = User.find params[:id]
+    user.delete
+    redirect_to users_path
+  end
+
   private
     def user_params
         params.require(:user)
@@ -38,5 +45,14 @@ class UsersController < ApplicationController
 
     def admin_only
       redirect_to root_path unless admin?
+    end
+
+    def own_account_and_admin
+      user = User.find(params[:id])
+      if !admin?
+        redirect_to root_path
+      elsif own_account?
+        redirect_to users_path
+      end
     end
 end

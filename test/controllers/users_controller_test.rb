@@ -42,4 +42,28 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get users_path
     assert_redirected_to root_path
   end
+
+  test "can't delete account if not an amdin" do
+    log_in_as @basic_user
+    assert_no_difference 'User.count' do
+      delete user_path(@basic_user)
+    end
+    assert_redirected_to root_path
+  end
+
+  test "delete account if admin" do
+    log_in_as @admin
+    assert_difference 'User.count', -1 do
+      delete user_path(@basic_user)
+    end
+    assert_redirected_to users_path
+  end
+
+  test "admin can't delete his own account" do
+    log_in_as @admin
+    assert_no_difference 'User.count' do
+      delete user_path(@admin)
+    end
+    assert_redirected_to users_path
+  end
 end

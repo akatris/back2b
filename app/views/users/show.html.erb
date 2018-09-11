@@ -1,1 +1,20 @@
-<h1><%= @user.username %></h1>
+<div class="row">
+  <div class="col-sm-8">
+    <h1 class="text-center">
+      <%= @user.username.upcase %>
+      <small>'s Profile</small>
+    </h1>
+    <b>Username:</b> <%= @user.username %><br/>
+    <b>Role:</b> <%= @user.role %><br/>
+    <b>Created at: </b> <%= @user.created_at %><br/>
+    <b>Updated at: </b><%= @user.updated_at %><br/>
+  </div>
+  <div class="col-sm-4">
+    <h6>ACTIONS</h6>
+    <ul>
+      <li><%= link_to 'list of users', users_path %>
+      <li><%= link_to 'update account settings', edit_user_path(@user) %>
+      <li><%= link_to 'delete account', user_path(@user), method: :delete %>
+    </ul>
+  </div>
+</div>

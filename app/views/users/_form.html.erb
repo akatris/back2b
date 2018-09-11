@@ -20,7 +20,7 @@
       <%= f.label :role %>
       <%= f.select :role do %>
         <% User.roles.each do |key, role| %>
-          <%= content_tag :option, key, value: role %>
+          <%= content_tag :option, key, value: key, selected: @user.role == key %>
         <% end %>
       <% end %>
     </div>

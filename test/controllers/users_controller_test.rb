@@ -28,7 +28,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "non-admin users cannot see other profile" do
     log_in_as @basic_user
     get user_path(@another_user)
-    assert_redirected_to user_path(@another_user)
+    assert_redirected_to user_path(@basic_user)
   end
 
   test "only admin should view the users list" do
@@ -65,5 +65,27 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       delete user_path(@admin)
     end
     assert_redirected_to users_path
+  end
+
+  test "admin can update any account" do
+    log_in_as @admin
+    get edit_user_path(@basic_user)
+    patch user_path(@basic_user), params: {
+      user: {
+        username: 'hello',
+        password: 'password',
+        password_confirmation: 'password',
+        role: 'basic'
+      }
+    }
+    assert_redirected_to user_path(@basic_user)
+    user = User.find_by(username: 'hello')
+    assert user
+  end
+
+  test "account owner can update their account" do
+    log_in_as @basic_user
+    get edit_user_path @another_user
+    assert_redirected_to user_path(@basic_user)
   end
 end

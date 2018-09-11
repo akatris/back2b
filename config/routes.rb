@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :pcop do
+    resources :classes
+  end
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
@@ -7,7 +10,6 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
 
   resources :users
-  resources :pcop_classes
 
   root 'static_pages#home'
 

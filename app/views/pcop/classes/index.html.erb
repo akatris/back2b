@@ -1,0 +1,7 @@
+<h1 class="text-center">Plan comptable des operations publiques (PCOP) 2006</h1>
+
+<% @classes.each do |pcop_class| %>
+<div class="pcop_class">
+  <h2><%= pcop_class.id %>. <%= pcop_class.name %></h2>
+</div>
+<% end %>

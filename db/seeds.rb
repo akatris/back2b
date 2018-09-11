@@ -7,6 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create(id: 1, username: "admin", role: "admin", password: "password", password_confirmation: 'password')
 
+Pcop::Class.create(id: 1, name: "comptes des fonds", description: "empty")
+Pcop::Class.create(id: 2, name: "comptes des immobilisations", description: "empty")
+Pcop::Class.create(id: 6, name: "comptes des charges", description: "empty")
+Pcop::Class.create(id: 7, name: "comptes des produits", description: "empty")
+
 if Rails.env.development?
   99.times do |n|
     User.create(username: Faker::Internet.username, role: "basic",

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString1
+  description: MyString
+  pcop_account: one
+
+two:
+  name: MyString2
+  description: MyString
+  pcop_account: two

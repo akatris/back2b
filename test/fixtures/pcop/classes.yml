@@ -1,1 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  id: 1
+  name: 'comptes des fonds'
+  description: 'bla bla'
+
+two:
+  id: 2
+  name: comptes des immobilisations
+  description: 'bla bla'

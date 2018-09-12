@@ -1,17 +1,23 @@
 <h1 class="text-center">Plan comptable des operations publiques (PCOP) 2006</h1>
-
-<ul>
-  <% @classes.each do |pcop_class| %>
-  <li class="pcop_class">
-    <%= pcop_class.id %>. <%= pcop_class.name %>
+<div class="row">
+  <div class="col-md-3">
+    <%= link_to 'Créer une classe', new_pcop_class_path, class: 'btn btn-success' %>
+  </div>
+  <div class="col">
     <ul>
-      <% pcop_class.accounts.all.each do |pcop_account| %>
-        <li>
-            <%= pcop_account.id %>.
-            <%= pcop_account.name %>
-        </li>
+      <% @classes.each do |pcop_class| %>
+      <li class="pcop_class">
+        <%= pcop_class.id %>. <%= pcop_class.name %>
+        <ul>
+          <% pcop_class.accounts.all.each do |pcop_account| %>
+            <li>
+                <%= pcop_account.id %>.
+                <%= pcop_account.name %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
       <% end %>
     </ul>
-  </li>
-  <% end %>
-</ul>
+  </div>
+</div>

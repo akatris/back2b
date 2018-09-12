@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyString
+  id: 11
+  name: comptes des immobilisations
+  description: bla bla
   pcop_class: one
 
 two:
-  name: MyString
-  description: MyString
-  pcop_class: two
+  id: 14
+  name: céssion d'immobilisations
+  description: bla bla
+  pcop_class: one

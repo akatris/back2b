@@ -1,3 +1,5 @@
 class Pcop::Account < ApplicationRecord
-  belongs_to :pcop_class, foreign_key: 'class_id', optional: true
+  belongs_to      :pcop_class, foreign_key: 'pcop_class_id', optional: true
+  has_many        :sub_accounts, class_name: 'Pcop::SubAccount',
+                  foreign_key: 'pcop_sub_account_id'
 end

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :pcop do
-    resources :classes
+    resources :classes do
+      resources :accounts
+    end
   end
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

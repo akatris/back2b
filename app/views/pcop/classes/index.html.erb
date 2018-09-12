@@ -6,14 +6,14 @@
       <% @classes.each do |pcop_class| %>
       <li class="pcop_class">
         <%= pcop_class.id %>. <%= link_to pcop_class.name, pcop_class_path(pcop_class.id) %>
-        | <%= link_to icon('fa', 'plus'), '#', class: 'text-secondary' %>
+        | <%= link_to icon('fa', 'plus'), new_pcop_class_account_url(pcop_class), class: 'text-secondary' %>
         | <%= link_to icon('fa', 'edit'), '#', class: 'text-secondary' %>
         | <%= link_to icon('fa', 'trash'), '#', class: 'text-secondary' %>
         <ul>
           <% pcop_class.accounts.all.each do |pcop_account| %>
             <li>
                 <%= pcop_account.id %>.
-                <%= pcop_account.name %>
+                <%= link_to pcop_account.name, pcop_class_account_url(pcop_class, pcop_account) %>
                 | <%= link_to icon('fa', 'plus'), '#', class: 'text-secondary' %>
                 | <%= link_to icon('fa', 'edit'), '#', class: 'text-secondary' %>
                 | <%= link_to icon('fa', 'trash'), '#', class: 'text-secondary' %>

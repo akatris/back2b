@@ -1,23 +1,42 @@
 <h1 class="text-center">Plan comptable des operations publiques (PCOP) 2006</h1>
 <div class="row">
-  <div class="col-md-3">
-    <%= link_to 'Créer une classe', new_pcop_class_path, class: 'btn btn-success' %>
-  </div>
   <div class="col">
+
     <ul>
       <% @classes.each do |pcop_class| %>
       <li class="pcop_class">
-        <%= pcop_class.id %>. <%= pcop_class.name %>
+        <%= pcop_class.id %>. <%= link_to pcop_class.name, pcop_class_path(pcop_class.id) %>
+        | <%= link_to icon('fa', 'plus'), '#', class: 'text-secondary' %>
+        | <%= link_to icon('fa', 'edit'), '#', class: 'text-secondary' %>
+        | <%= link_to icon('fa', 'trash'), '#', class: 'text-secondary' %>
         <ul>
           <% pcop_class.accounts.all.each do |pcop_account| %>
             <li>
                 <%= pcop_account.id %>.
                 <%= pcop_account.name %>
+                | <%= link_to icon('fa', 'plus'), '#', class: 'text-secondary' %>
+                | <%= link_to icon('fa', 'edit'), '#', class: 'text-secondary' %>
+                | <%= link_to icon('fa', 'trash'), '#', class: 'text-secondary' %>
+                <ul>
+                  <% pcop_account.sub_accounts.all.each do |pcop_sub_account| %>
+                  <li>
+                    <%= pcop_sub_account.id %>.
+                    <%= pcop_sub_account.name %>
+                    | <%= link_to icon('fa', 'plus'), '#', class: 'text-secondary' %>
+                    | <%= link_to icon('fa', 'edit'), '#', class: 'text-secondary' %>
+                    | <%= link_to icon('fa', 'trash'), '#', class: 'text-secondary' %>
+                  </li>
+                  <% end %>
+                </ul>
             </li>
           <% end %>
         </ul>
       </li>
       <% end %>
     </ul>
+  </div>
+  <div class="col-md-3">
+    <%= link_to 'Créer une classe', new_pcop_class_path, class: 'btn btn-success' %>
+
   </div>
 </div>

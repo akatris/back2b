@@ -3,6 +3,10 @@ class Pcop::ClassesController < ApplicationController
     @classes = Pcop::Class.all
   end
 
+  def show
+    @class = Pcop::Class.find params[:id]
+  end
+
   # Render pcop creation page
   def new
     @class = Pcop::Class.new

@@ -8,11 +8,14 @@
 User.create(id: 1, username: "admin", role: "admin", password: "password", password_confirmation: 'password')
 
 class_1 = Pcop::Class.create(id: 1, name: "comptes des fonds", description: "empty")
-class_1.accounts.create!(id: 11, name: "subventions d'équipement", description: "empty")
-class_1.accounts.create!(id: 14, name: "céssion d'immobilisations", description: "empty")
-class_1.accounts.create!(id: 15, name: "Provision pour charges - passifs non courants", description: "empty")
-class_1.accounts.create!(id: 16, name: "emprunts et dettes assimilés", description: "empty")
-class_1.accounts.create!(id: 17, name: "dettes rattachées à des participations", description: "empty")
+pcop_13 = class_1.accounts.create!(id: 13, name: "subventions d'équipement", description: "empty")
+pcop_132 = pcop_13.sub_accounts.create!(id: 132, name: "utilisation de FCV en investissement")
+pcop_139 = pcop_13.sub_accounts.create!(id: 139, name: "subvention d'investissement transférée au compte de résultat")
+
+pcop_14 = class_1.accounts.create!(id: 14, name: "céssion d'immobilisations", description: "empty")
+pcop_15 = class_1.accounts.create!(id: 15, name: "Provision pour charges - passifs non courants", description: "empty")
+pcop_16 = class_1.accounts.create!(id: 16, name: "emprunts et dettes assimilés", description: "empty")
+pcop_17 = class_1.accounts.create!(id: 17, name: "dettes rattachées à des participations", description: "empty")
 
 Pcop::Class.create(id: 2, name: "comptes des immobilisations", description: "empty")
 Pcop::Class.create(id: 6, name: "comptes des charges", description: "empty")

@@ -27,4 +27,9 @@ class Pcop::ClassesControllerTest < ActionDispatch::IntegrationTest
       }
     end
   end
+
+  test "should view class detail" do
+    get pcop_class_path @class_1
+    assert_response :success
+  end
 end

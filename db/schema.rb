@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_11_191800) do
+ActiveRecord::Schema.define(version: 2018_09_12_130037) do
+
+  create_table "pcop_accounts", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "pcop_class_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_pcop_accounts_on_name", unique: true
+    t.index ["pcop_class_id"], name: "index_pcop_accounts_on_pcop_class_id"
+  end
 
   create_table "pcop_classes", force: :cascade do |t|
     t.string "name"

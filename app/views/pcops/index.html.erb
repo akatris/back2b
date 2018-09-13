@@ -1,0 +1,26 @@
+<h1 class="text-center">Plan comptable des opérations publiques (P.C.O.P.) 2006</h1>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th>compte N°</th>
+      <th>Intitulés</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |pcop_category| %>
+      <tr>
+        <td><%= pcop_category.id %></td>
+        <td><%= pcop_category.name %></td>
+        <td><%=  %></td>
+      </tr>
+      <% pcop_category.accounts.each do |pcop_account| %>
+        <tr>
+          <td><%= pcop_account.id %></td>
+          <td><%= pcop_account.name %></td>
+          <td><%=  %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

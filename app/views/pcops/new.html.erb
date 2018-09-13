@@ -1,5 +1,8 @@
 <h1 class="text-center">Créer un compte dans le PCOP</h1>
 <%= form_for @pcop_form, url: pcops_path do |f| %>
+
+  <%= render partial: 'shared/error_messages', locals: { model: @pcop_form } %>
+
   <div class="form-group">
     <%= f.label :id %>
     <%= f.text_field :id, class: 'form-control' %>

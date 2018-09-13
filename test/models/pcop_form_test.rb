@@ -35,4 +35,10 @@ class PcopFormTest < ActiveSupport::TestCase
     @form.id = 12345
     assert_not @form.valid?
   end
+
+  test "name is required" do
+    @form.name = nil
+    assert_not @form.valid?
+  end
+
 end

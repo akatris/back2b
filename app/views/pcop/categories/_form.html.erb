@@ -1,9 +1,9 @@
-<%= form_for @class do |f| %>
-  <% if @class.errors.any? %>
+<%= form_for @category do |f| %>
+  <% if @category.errors.any? %>
     <div class="error_messages alert alert-danger">
       <b>Form contains error:</b>
       <ul class="error_detail">
-        <% @class.errors.full_messages.each do |msg| %>
+        <% @category.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>

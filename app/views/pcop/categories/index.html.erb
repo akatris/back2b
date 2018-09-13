@@ -3,17 +3,17 @@
   <div class="col">
 
     <ul>
-      <% @classes.each do |pcop_class| %>
+      <% @categories.each do |pcop_category| %>
       <li class="pcop_class">
-        <%= pcop_class.id %>. <%= link_to pcop_class.name, pcop_class_path(pcop_class.id) %>
-        | <%= link_to icon('fa', 'plus'), new_pcop_class_account_url(pcop_class), class: 'text-secondary' %>
+        <%= pcop_category.id %>. <%= link_to pcop_category.name, pcop_category_path(pcop_category.id) %>
+        | <%= link_to icon('fa', 'plus'), new_pcop_category_account_url(pcop_category), class: 'text-secondary' %>
         | <%= link_to icon('fa', 'edit'), '#', class: 'text-secondary' %>
         | <%= link_to icon('fa', 'trash'), '#', class: 'text-secondary' %>
         <ul>
-          <% pcop_class.accounts.all.each do |pcop_account| %>
+          <% pcop_category.accounts.all.each do |pcop_account| %>
             <li>
                 <%= pcop_account.id %>.
-                <%= link_to pcop_account.name, pcop_class_account_url(pcop_class, pcop_account) %>
+                <%= link_to pcop_account.name, pcop_category_account_url(pcop_category, pcop_account) %>
                 | <%= link_to icon('fa', 'plus'), '#', class: 'text-secondary' %>
                 | <%= link_to icon('fa', 'edit'), '#', class: 'text-secondary' %>
                 | <%= link_to icon('fa', 'trash'), '#', class: 'text-secondary' %>
@@ -36,7 +36,7 @@
     </ul>
   </div>
   <div class="col-md-3">
-    <%= link_to 'Créer une classe', new_pcop_class_path, class: 'btn btn-success' %>
+    <%= link_to 'Créer une classe', new_pcop_category_path, class: 'btn btn-success' %>
 
   </div>
 </div>

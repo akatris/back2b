@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :pcop do
-    resources :classes do
+    resources :categories do
       resources :accounts
     end
   end

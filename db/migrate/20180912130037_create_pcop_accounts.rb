@@ -3,7 +3,7 @@ class CreatePcopAccounts < ActiveRecord::Migration[5.2]
     create_table :pcop_accounts do |t|
       t.string :name
       t.string :description
-      t.references :pcop_class, foreign_key: true
+      t.references :pcop_category, foreign_key: true
 
       t.timestamps
     end

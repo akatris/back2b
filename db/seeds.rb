@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create(id: 1, username: "admin", role: "admin", password: "password", password_confirmation: 'password')
 
-class_1 = Pcop::Class.create(id: 1, name: "comptes des fonds", description: "empty")
+class_1 = Pcop::Category.create(id: 1, name: "comptes des fonds", description: "empty")
 pcop_13 = class_1.accounts.create!(id: 13, name: "subventions d'équipement", description: "empty")
 pcop_132 = pcop_13.sub_accounts.create!(id: 132, name: "utilisation de FCV en investissement")
 pcop_139 = pcop_13.sub_accounts.create!(id: 139, name: "subvention d'investissement transférée au compte de résultat")

@@ -4,10 +4,10 @@ one:
   id: 11
   name: comptes des immobilisations
   description: bla bla
-  pcop_class: one
+  pcop_category: one
 
 two:
   id: 14
   name: céssion d'immobilisations
   description: bla bla
-  pcop_class: one
+  pcop_category: one

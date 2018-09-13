@@ -3,4 +3,8 @@ class PcopsController < ApplicationController
   def index
     @categories = Pcop::Category.all
   end
+
+  def new
+    @pcop_form = Pcop::Form.new
+  end
 end

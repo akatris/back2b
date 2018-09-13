@@ -1,0 +1,19 @@
+<h1 class="text-center">Créer un compte dans le PCOP</h1>
+<%= form_for @pcop_form, url: pcops_path do |f| %>
+  <div class="form-group">
+    <%= f.label :id %>
+    <%= f.text_field :id, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+
+  <%= f.submit 'Créer ce compte', class: 'btn btn-primary' %>
+<% end %>

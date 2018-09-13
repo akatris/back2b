@@ -5,4 +5,9 @@ class PcopsControllerTest < ActionDispatch::IntegrationTest
     get pcops_path
     assert_response :success
   end
+
+  test "should display pcop creation page" do
+    get new_pcop_path
+    assert_response :success
+  end
 end

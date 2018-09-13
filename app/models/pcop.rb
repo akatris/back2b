@@ -10,4 +10,10 @@ module Pcop
     else nil
     end
   end
+
+  class Form
+    include ActiveModel::Model
+    attr_accessor :id, :name, :description
+    validates     :id, presence: true, format: { with: /\A[1-7][\d]{0,3}\z/ }
+  end
 end

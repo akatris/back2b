@@ -4,6 +4,7 @@ class PcopFormTest < ActiveSupport::TestCase
 
   def setup
     @form = Pcop::Form.new(id: 1, name: 'test', description: 'tst')
+    @category = pcop_categories(:one)
   end
 
   test "form works" do
@@ -41,4 +42,39 @@ class PcopFormTest < ActiveSupport::TestCase
     assert_not @form.valid?
   end
 
+  test "type should return Pcop::Category when id contains only 1 character" do
+    assert Pcop::Category == Pcop::type(4)
+  end
+
+  test "type should return Pcop::Account when id contains 2 characters" do
+    assert Pcop::Account == Pcop::type(43)
+  end
+
+  test "type should return Pcop::SubAccount when id contains 3 characters" do
+    assert Pcop::SubAccount == Pcop::type(432)
+  end
+
+  test "Can save valid Category" do
+    category_form = Pcop::Form.new id: 4, name: 'hello', description: 'hello'
+    assert_difference 'Pcop::Category.count' do
+      category_form.save_based_on_id
+    end
+  end
+
+  test "Can save valid Account based on id" do
+    # The category id one is already saved from fixtures.
+    # these lines just create account inside the category 1
+    form = Pcop::Form.new id: 12, name: 'account_12', description: 'hello'
+    assert_difference 'Pcop::Account.count' do
+      form.save_based_on_id
+    end
+  end
+
+  test "Can save valid SubAccount based on id" do
+    # Uses the account with id 11 from the fixtures
+    form = Pcop::Form.new id: 112, name: 'sub_account_112', description: 'hello'
+    assert_difference 'Pcop::SubAccount.count' do
+      form.save_based_on_id
+    end
+  end
 end

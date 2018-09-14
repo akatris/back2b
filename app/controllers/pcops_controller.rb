@@ -11,7 +11,7 @@ class PcopsController < ApplicationController
   def create
     @pcop_form = Pcop::Form.new pcop_params
     if @pcop_form.valid?
-      @pcop_form.push
+      @pcop_form.save_based_on_id
       redirect_to pcops_path
     else
       render 'pcops/new'

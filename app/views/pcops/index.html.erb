@@ -21,6 +21,13 @@
           <td><%= pcop_account.name %></td>
           <td><%=  %></td>
         </tr>
+        <% pcop_account.sub_accounts.each do |pcop_sub_account| %>
+          <tr>
+            <td><%= pcop_sub_account.id %></td>
+            <td><%= pcop_sub_account.name %></td>
+            <td><%=  %></td>
+          </tr>
+        <% end %>
       <% end %>
     <% end %>
   </tbody>

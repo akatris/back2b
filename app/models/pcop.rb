@@ -27,22 +27,39 @@ module Pcop
       id = self.id.to_s
       type = Pcop::type id
       if type == Pcop::Category
-        Pcop::Category.create id: id[0], name: self.name,
-                              description: self.description
+        create_category(id)
       elsif type == Pcop::Account
+        create_account(id)
+      elsif type == Pcop::SubAccount
+        create_sub_account(id)
+      elsif type == Pcop::Rubric
+        create_rubric(id)
+      end
+    end
+
+    private
+      def create_category(id)
+        Pcop::Category.create id: id[0], name: self.name,
+          description: self.description
+      end
+
+      def create_account(id)
         category = Pcop::Category.find id[0]
         category.accounts.create id: id, name: self.name,
-                                  description: self.description
-      elsif type == Pcop::SubAccount
+          description: self.description
+      end
+
+      def create_sub_account(id)
         account = Pcop::Account.find id[0, 2]
         account.sub_accounts.create id: id, name: self.name,
-                                    description: self.description
-      elsif type == Pcop::Rubric
+          description: self.description
+      end
+
+      def create_rubric(id)
         sub_account = Pcop::SubAccount.find id[0, 3]
         sub_account.rubrics.create id: id, name: self.name,
           description: self.description,
           eligible_transactions: self.eligible_transactions
       end
-    end
   end
 end

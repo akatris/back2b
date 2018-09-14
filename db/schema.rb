@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_12_133700) do
+ActiveRecord::Schema.define(version: 2018_09_14_125254) do
 
   create_table "pcop_accounts", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 2018_09_12_133700) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_pcop_categories_on_name", unique: true
+  end
+
+  create_table "pcop_rubrics", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.text "eligible_transactions"
+    t.integer "sub_account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_pcop_rubrics_on_name", unique: true
+    t.index ["sub_account_id"], name: "index_pcop_rubrics_on_sub_account_id"
   end
 
   create_table "pcop_sub_accounts", force: :cascade do |t|

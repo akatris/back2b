@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1111
+  name: rubric_1111
+  description: MyText
+  eligible_transactions: MyText
+  sub_account: one
+
+two:
+  id: 2222
+  name: rubric_2222
+  description: MyText
+  eligible_transactions: MyText
+  sub_account: two

@@ -2,12 +2,12 @@
 
 one:
   id: 11
-  name: comptes des immobilisations
+  name: account_11
   description: bla bla
   pcop_category: one
 
 two:
-  id: 14
-  name: céssion d'immobilisations
+  id: 22
+  name: account_22
   description: bla bla
-  pcop_category: one
+  pcop_category: two

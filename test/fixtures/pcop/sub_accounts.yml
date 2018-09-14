@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString1
+  id: 111
+  name: sub_account_111
   description: MyString
   pcop_account: one
 
 two:
-  name: MyString2
+  id: 222
+  name: sub_account_222
   description: MyString
   pcop_account: two

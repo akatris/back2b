@@ -4,7 +4,7 @@ class CreatePcopRubrics < ActiveRecord::Migration[5.2]
       t.string :name
       t.text :description
       t.text :eligible_transactions
-      t.references :sub_account, foreign_key: true
+      t.references :pcop_sub_account, foreign_key: true
 
       t.timestamps
     end

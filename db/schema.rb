@@ -34,11 +34,11 @@ ActiveRecord::Schema.define(version: 2018_09_14_125254) do
     t.string "name"
     t.text "description"
     t.text "eligible_transactions"
-    t.integer "sub_account_id"
+    t.integer "pcop_sub_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_pcop_rubrics_on_name", unique: true
-    t.index ["sub_account_id"], name: "index_pcop_rubrics_on_sub_account_id"
+    t.index ["pcop_sub_account_id"], name: "index_pcop_rubrics_on_pcop_sub_account_id"
   end
 
   create_table "pcop_sub_accounts", force: :cascade do |t|

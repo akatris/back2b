@@ -5,11 +5,11 @@ one:
   name: rubric_1111
   description: MyText
   eligible_transactions: MyText
-  sub_account: one
+  pcop_sub_account: one
 
 two:
   id: 2222
   name: rubric_2222
   description: MyText
   eligible_transactions: MyText
-  sub_account: two
+  pcop_sub_account: two

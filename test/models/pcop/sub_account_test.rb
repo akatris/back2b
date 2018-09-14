@@ -9,18 +9,30 @@ class Pcop::SubAccountTest < ActiveSupport::TestCase
     assert @sub_account.valid?
   end
 
-  test "id should contain 3 characters" do
+  test "id should be valid" do
     @sub_account.id = 12
-    @sub_account.name = "fa"
-    assert_not @sub_account.valid?
+    assert @sub_account.invalid?
     @sub_account.id = 123
     assert @sub_account.valid?
   end
 
-  test "name should be unique" do
-    @sub_account.save
-    other_sub_account = pcop_sub_accounts(:two)
-    other_sub_account.name = @sub_account.name
-    assert other_sub_account.invalid?
+  test "name is required" do
+    @sub_account.name = nil
+    assert @sub_account.invalid?
+  end
+
+  test "id is required" do
+    @sub_account.id = nil
+    assert @sub_account.invalid?
+  end
+
+  test "name should not exceed 255" do
+    @sub_account.name = "a" * 256
+    assert @sub_account.invalid?
+  end
+
+  test "description should not exceed 500" do
+    @sub_account.description = 'a' * 501
+    assert @sub_account.invalid?
   end
 end

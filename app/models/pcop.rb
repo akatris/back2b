@@ -8,6 +8,7 @@ module Pcop
     when 1 then Pcop::Category
     when 2 then Pcop::Account
     when 3 then Pcop::SubAccount
+    when 4 then Pcop::Rubric
     else nil
     end
   end
@@ -16,7 +17,7 @@ module Pcop
   #       which will be saved(uniqueness of ids and names).
   class Form
     include ActiveModel::Model
-    attr_accessor :id, :name, :description
+    attr_accessor :id, :name, :description, :eligible_transactions
     validates     :id, presence: true, format: {
                     with: /\A[1-7][\d]{0,3}\z/
                   }
@@ -33,9 +34,14 @@ module Pcop
         category.accounts.create id: id, name: self.name,
                                   description: self.description
       elsif type == Pcop::SubAccount
-        account = Pcop::Account.find id[0,2]
+        account = Pcop::Account.find id[0, 2]
         account.sub_accounts.create id: id, name: self.name,
                                     description: self.description
+      elsif type == Pcop::Rubric
+        sub_account = Pcop::SubAccount.find id[0, 3]
+        sub_account.rubrics.create id: id, name: self.name,
+          description: self.description,
+          eligible_transactions: self.eligible_transactions
       end
     end
   end

@@ -27,6 +27,13 @@
             <td><%= pcop_sub_account.name %></td>
             <td><%=  %></td>
           </tr>
+          <% pcop_sub_account.rubrics.each do |rubric| %>
+            <tr>
+              <td><%= rubric.id %></td>
+              <td><%= rubric.name %></td>
+              <td><%=  %></td>
+            </tr>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

@@ -20,6 +20,7 @@ class PcopsController < ApplicationController
 
   private
     def pcop_params
-      params.require(:pcop_form).permit(:id, :name, :description)
+      params.require(:pcop_form)
+        .permit(:id, :name, :description, :eligible_transactions)
     end
 end

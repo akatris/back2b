@@ -54,6 +54,10 @@ class PcopFormTest < ActiveSupport::TestCase
     assert Pcop::SubAccount == Pcop::type(432)
   end
 
+  test "type should return Pcop::Rubric when id contains 4 characters" do
+    assert Pcop::Rubric == Pcop::type(4567)
+  end
+
   test "Can save valid Category" do
     category_form = Pcop::Form.new id: 4, name: 'hello', description: 'hello'
     assert_difference 'Pcop::Category.count' do
@@ -74,6 +78,15 @@ class PcopFormTest < ActiveSupport::TestCase
     # Uses the account with id 11 from the fixtures
     form = Pcop::Form.new id: 112, name: 'sub_account_112', description: 'hello'
     assert_difference 'Pcop::SubAccount.count' do
+      form.save_based_on_id
+    end
+  end
+
+  test "Can save valid Rubric based on id" do
+    # Uses the sub-account with id 111 from the fixtures
+    form = Pcop::Form.new id: 1112, name: 'rubric_1112', description: 'hello',
+                          eligible_transactions: 'bla bla bla'
+    assert_difference 'Pcop::Rubric.count' do
       form.save_based_on_id
     end
   end

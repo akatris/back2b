@@ -8,6 +8,7 @@ class PcopsController < ApplicationController
     @pcop_form = Pcop::Form.new
   end
 
+  # TODO: wait for https://github.com/rails/rails/issues/33887 to be fixed.
   def create
     @pcop_form = Pcop::Form.new pcop_params
     if @pcop_form.valid?

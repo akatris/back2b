@@ -18,10 +18,26 @@ module Pcop
   class Form
     include ActiveModel::Model
     attr_accessor :id, :name, :description, :eligible_transactions
-    validates     :id, presence: true, format: {
-                    with: /\A[1-7][\d]{0,3}\z/
-                  }
-    validates     :name, presence: true
+    validate     :valid_pcop?
+
+    def valid_pcop?
+      type = Pcop::type(self.id)
+      if type.nil?
+        errors.add :id, :invalid
+        return
+      end
+      if type == Pcop::Rubric
+        pcop = type.new id: id, name: name, description: description,
+                        eligible_transactions: eligible_transactions
+      else
+        pcop = type.new id: id, name: name, description: description
+      end
+      if pcop.invalid?
+        pcop.errors.each do |attribute, error|
+          errors.add(attribute, error)
+        end
+      end
+    end
 
     def save_based_on_id
       id = self.id.to_s

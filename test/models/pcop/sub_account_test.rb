@@ -2,7 +2,8 @@ require 'test_helper'
 
 class Pcop::SubAccountTest < ActiveSupport::TestCase
   def setup
-    @sub_account = pcop_sub_accounts(:one)
+    @sub_account = pcop_sub_accounts :one
+    @another_sub_account = pcop_sub_accounts :two
   end
 
   test "is valid" do
@@ -14,6 +15,12 @@ class Pcop::SubAccountTest < ActiveSupport::TestCase
     assert @sub_account.invalid?
     @sub_account.id = 123
     assert @sub_account.valid?
+  end
+
+  test "id should be unique" do
+    @sub_account.save
+    @another_sub_account.id = @sub_account.id
+    assert @another_sub_account.invalid?
   end
 
   test "name is required" do

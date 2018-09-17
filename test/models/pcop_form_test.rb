@@ -3,12 +3,8 @@ require 'test_helper'
 class PcopFormTest < ActiveSupport::TestCase
 
   def setup
-    @form = Pcop::Form.new(id: 1, name: 'test', description: 'tst')
+    @form = Pcop::Form.new(id: 7, name: 'test', description: 'tst')
     @category = pcop_categories(:one)
-  end
-
-  test "form works" do
-    assert @form
   end
 
   test "form is valid" do

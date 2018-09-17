@@ -15,11 +15,21 @@ class Pcop::CategoryTest < ActiveSupport::TestCase
     assert_not @category_one.valid?
   end
 
+  test "id should contains only numeric char" do
+    @category_one.id = 'a'
+    assert_not @category_one.valid?
+  end
+
   test "ids are required" do
     @category_one.id = nil
     assert_not @category_one.valid?
   end
 
+  test "id should be unique" do
+    @category_one.save
+    @category_two.id = @category_one.id
+    assert_not @category_two.valid?
+  end
   test "name should be unique" do
     @category_one.save
     @category_two.name = @category_one.name

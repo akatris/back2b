@@ -2,8 +2,9 @@ require 'test_helper'
 
 class Pcop::AccountTest < ActiveSupport::TestCase
   def setup
-    @category = pcop_categories(:one)
-    @account = pcop_accounts(:one)
+    @category = pcop_categories :one
+    @account = pcop_accounts :one
+    @another_account = pcop_accounts :two
   end
 
   test "Should be valid" do
@@ -23,6 +24,12 @@ class Pcop::AccountTest < ActiveSupport::TestCase
   test "Ids should contain only numeric value" do
     @account.id = 'ab'
     assert_not @account.valid?
+  end
+
+  test "Id should be unique" do
+    @account.save
+    @another_account.id = @account.id
+    assert @another_account.invalid?
   end
 
   test "name is required" do

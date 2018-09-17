@@ -3,6 +3,7 @@ require 'test_helper'
 class Pcop::RubricTest < ActiveSupport::TestCase
   def setup
     @rubric = pcop_rubrics(:one)
+    @another_rubric = pcop_rubrics :two
   end
 
   test "rubric is valid" do
@@ -12,6 +13,12 @@ class Pcop::RubricTest < ActiveSupport::TestCase
   test "id's should have valid format" do
     @rubric.id = 12345
     assert @rubric.invalid?
+  end
+
+  test "id should be unique" do
+    @rubric.save
+    @another_rubric.id = @rubric.id
+    assert @another_rubric.invalid?
   end
 
   test "name is required" do

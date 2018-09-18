@@ -13,7 +13,7 @@
       <tr>
         <td><%= pcop_category.id %></td>
         <td><%= pcop_category.name %></td>
-        <td><%=  %></td>
+        <td><%= link_to icon('fa', 'edit'), edit_pcop_path(pcop_category.id) %></td>
       </tr>
       <% pcop_category.accounts.each do |pcop_account| %>
         <tr>

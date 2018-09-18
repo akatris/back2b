@@ -1,0 +1,25 @@
+<h1>Mettre la rubrique <%= @pcop_form.name %></h1>
+<%= form_for @pcop_form, url: pcop_path(@pcop_form.id), method: :patch do |f| %>
+
+  <%= render partial: 'shared/error_messages', locals: {model: @pcop_form} %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control' %>
+  </div>
+
+
+  <% if is_rubric?(@pcop_form) %>
+    <div class="form-group">
+      <%= f.label :eligible_transactions %>
+      <%= f.text_area :eligible_transactions, class: 'form-control' %>
+    </div>
+  <% end %>
+
+  <%= f.submit "Confirmer", class: 'btn btn-primary' %>
+<% end %>

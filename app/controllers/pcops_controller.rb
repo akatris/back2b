@@ -8,6 +8,12 @@ class PcopsController < ApplicationController
     @pcop_form = Pcop::Form.new
   end
 
+  def edit
+    type = Pcop::type params[:id]
+    pcop = type.find params[:id]
+    @pcop_form = Pcop::Form.new(id: pcop.id, name: pcop.name, description: pcop.description)
+  end
+
   # TODO: wait for https://github.com/rails/rails/issues/33887 to be fixed.
   def create
     @pcop_form = Pcop::Form.new pcop_params
@@ -19,9 +25,26 @@ class PcopsController < ApplicationController
     end
   end
 
+
+  def update
+    type = Pcop::type params[:id]
+    pcop = type.find params[:id]
+    @pcop_form = Pcop::Form.new(id: pcop.id, name: pcop.name, description: pcop.description)
+    if pcop.update_attributes pcop_update_params
+      redirect_to pcops_path
+    else
+      render 'pcops/edit'
+    end
+  end
+
   private
     def pcop_params
       params.require(:pcop_form)
         .permit(:id, :name, :description, :eligible_transactions)
+    end
+
+    def pcop_update_params
+      params.require(:pcop_form)
+        .permit(:name, :description, :eligible_transactions)
     end
 end

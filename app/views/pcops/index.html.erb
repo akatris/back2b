@@ -19,19 +19,19 @@
         <tr>
           <td><%= pcop_account.id %></td>
           <td><%= pcop_account.name %></td>
-          <td><%=  %></td>
+          <td><%= link_to icon('fa', 'edit'), edit_pcop_path(pcop_account.id) %></td>
         </tr>
         <% pcop_account.sub_accounts.each do |pcop_sub_account| %>
           <tr>
             <td><%= pcop_sub_account.id %></td>
             <td><%= pcop_sub_account.name %></td>
-            <td><%=  %></td>
+            <td><%= link_to icon('fa', 'edit'), edit_pcop_path(pcop_sub_account.id) %></td>
           </tr>
           <% pcop_sub_account.rubrics.each do |rubric| %>
             <tr>
               <td><%= rubric.id %></td>
               <td><%= rubric.name %></td>
-              <td><%=  %></td>
+              <td><%= link_to icon('fa', 'edit'), edit_pcop_path(rubric.id) %></td>
             </tr>
           <% end %>
         <% end %>

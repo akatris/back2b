@@ -11,7 +11,13 @@ class PcopsController < ApplicationController
   def edit
     type = Pcop::type params[:id]
     pcop = type.find params[:id]
-    @pcop_form = Pcop::Form.new(id: pcop.id, name: pcop.name, description: pcop.description)
+    if is_rubric?(pcop)
+      @pcop_form = Pcop::Form.new(id: pcop.id, name: pcop.name,
+        description: pcop.description,
+        eligible_transactions: pcop.eligible_transactions)
+    else
+      @pcop_form = Pcop::Form.new(id: pcop.id, name: pcop.name, description: pcop.description)
+    end
   end
 
   # TODO: wait for https://github.com/rails/rails/issues/33887 to be fixed.
@@ -29,7 +35,13 @@ class PcopsController < ApplicationController
   def update
     type = Pcop::type params[:id]
     pcop = type.find params[:id]
-    @pcop_form = Pcop::Form.new(id: pcop.id, name: pcop.name, description: pcop.description)
+    if is_rubric?(pcop)
+      @pcop_form = Pcop::Form.new(id: pcop.id, name: pcop.name,
+        description: pcop.description,
+        eligible_transactions: pcop.eligible_transactions)
+    else
+      @pcop_form = Pcop::Form.new(id: pcop.id, name: pcop.name, description: pcop.description)
+    end
     if @pcop_form.update_attribues_based_on_id pcop_update_params
       redirect_to pcops_path
     else

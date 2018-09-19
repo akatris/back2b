@@ -39,6 +39,20 @@ module Pcop
       end
     end
 
+    # TODO: Cover
+    def update_attribues_based_on_id params
+      type = Pcop::type id
+      pcop = type.find id
+      if pcop.update_attributes params
+        return true
+      else
+        pcop.errors.each do |attribute, error|
+          errors.add(attribute, error)
+        end
+        return false
+      end
+    end
+
     def save_based_on_id
       id = self.id.to_s
       type = Pcop::type id

@@ -30,7 +30,7 @@ class PcopsController < ApplicationController
     type = Pcop::type params[:id]
     pcop = type.find params[:id]
     @pcop_form = Pcop::Form.new(id: pcop.id, name: pcop.name, description: pcop.description)
-    if pcop.update_attributes pcop_update_params
+    if @pcop_form.update_attribues_based_on_id pcop_update_params
       redirect_to pcops_path
     else
       render 'pcops/edit'

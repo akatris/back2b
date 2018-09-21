@@ -1,11 +1,9 @@
-# README
+# CAFPA AREA
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+CAFPA Area is a web based application used to manage financial transactions at CAFPA
 
 * Ruby version
+  2.5.x
 
 * System dependencies
 

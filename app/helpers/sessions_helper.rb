@@ -29,4 +29,8 @@ module SessionsHelper
   def own_account?(user)
     current_user.id == user.id
   end
+
+  def has_establishment?
+    current_user.establishment != nil
+  end
 end

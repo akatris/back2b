@@ -11,6 +11,7 @@
   </div>
   <div class="col-sm-4">
     <h6>ACTIONS</h6>
+    <%= link_to_unless has_establishment?, 'Créer un établisement', '#', class: 'btn btn-success' %> 
     <ul>
       <li><%= link_to 'list of users', users_path %>
       <li><%= link_to 'update account settings', edit_user_path(@user) %>

@@ -20,7 +20,6 @@ class PcopsController < ApplicationController
     end
   end
 
-  # TODO: wait for https://github.com/rails/rails/issues/33887 to be fixed.
   def create
     @pcop_form = Pcop::Form.new pcop_params
     if @pcop_form.valid?
@@ -47,6 +46,13 @@ class PcopsController < ApplicationController
     else
       render 'pcops/edit'
     end
+  end
+
+  def destroy
+    type = Pcop::type params[:id]
+    pcop = type.find params[:id]
+    pcop.destroy
+    redirect_to pcops_path   
   end
 
   private

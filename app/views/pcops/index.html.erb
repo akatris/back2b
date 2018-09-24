@@ -13,25 +13,53 @@
       <tr>
         <td><%= pcop_category.id %></td>
         <td><%= pcop_category.name %></td>
-        <td><%= link_to icon('fa', 'edit'), edit_pcop_path(pcop_category.id) %></td>
+        <td>
+          <%= link_to icon('fa', 'edit'), edit_pcop_path(pcop_category.id) %>
+          <%= link_to icon('fa', 'trash'), pcop_path(pcop_category.id),
+                      method: :delete,
+                      data: {
+                        confirm: 'Cela entrainera la suppression de tout les pcop dependant de celui ci! Etes-vous sûr?'
+                        } %>
+        </td>
       </tr>
       <% pcop_category.accounts.each do |pcop_account| %>
         <tr>
           <td><%= pcop_account.id %></td>
           <td><%= pcop_account.name %></td>
-          <td><%= link_to icon('fa', 'edit'), edit_pcop_path(pcop_account.id) %></td>
+          <td>
+            <%= link_to icon('fa', 'edit'), edit_pcop_path(pcop_account.id) %>
+            <%= link_to icon('fa', 'trash'), pcop_path(pcop_account.id),
+                        method: :delete,
+                        data: {
+                          confirm: 'Cela entrainera la suppression de tout les pcop dependant de celui ci! Etes-vous sûr?'
+                          } %>
+          </td>
         </tr>
         <% pcop_account.sub_accounts.each do |pcop_sub_account| %>
           <tr>
             <td><%= pcop_sub_account.id %></td>
             <td><%= pcop_sub_account.name %></td>
-            <td><%= link_to icon('fa', 'edit'), edit_pcop_path(pcop_sub_account.id) %></td>
+            <td>
+              <%= link_to icon('fa', 'edit'), edit_pcop_path(pcop_sub_account.id) %>
+              <%= link_to icon('fa', 'trash'), pcop_path(pcop_sub_account.id),
+                          method: :delete,
+                          data: {
+                            confirm: 'Cela entrainera la suppression de tout les pcop dependant de celui ci! Etes-vous sûr?'
+                            } %>
+            </td>
           </tr>
           <% pcop_sub_account.rubrics.each do |rubric| %>
             <tr>
               <td><%= rubric.id %></td>
               <td><%= rubric.name %></td>
-              <td><%= link_to icon('fa', 'edit'), edit_pcop_path(rubric.id) %></td>
+              <td>
+                <%= link_to icon('fa', 'edit'), edit_pcop_path(rubric.id) %>
+                <%= link_to icon('fa', 'trash'), pcop_path(rubric.id),
+                      method: :delete,
+                      data: {
+                        confirm: 'Etes-vous sûr?'
+                        } %>  
+              </td>
             </tr>
           <% end %>
         <% end %>

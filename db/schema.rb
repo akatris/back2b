@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_122001) do
+ActiveRecord::Schema.define(version: 2018_09_24_124405) do
 
   create_table "establishments", force: :cascade do |t|
     t.string "name", limit: 255
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 2018_09_24_122001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role"
+    t.integer "establishment_id"
+    t.index ["establishment_id"], name: "index_users_on_establishment_id", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 

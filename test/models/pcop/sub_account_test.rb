@@ -42,4 +42,12 @@ class Pcop::SubAccountTest < ActiveSupport::TestCase
     @sub_account.description = 'a' * 501
     assert @sub_account.invalid?
   end
+
+  test "should also destroy child when the parent is destroyed" do
+    @sub_account.save
+    @sub_account.rubrics.create!(id: 1112, name: 'test')
+    assert_difference 'Pcop::Rubric.count', -1 do
+      @sub_account.destroy
+    end
+  end
 end

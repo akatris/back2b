@@ -50,4 +50,12 @@ class Pcop::CategoryTest < ActiveSupport::TestCase
     @category_one.description = 'a' * 256
     assert_not @category_one.valid?
   end
+
+  test "should also destroy child when the parent is destroyed" do
+    @category_one.save
+    @category_one.accounts.create!(id: 12, name: 'test')
+    assert_difference 'Pcop::Account.count', -1 do
+      @category_one.destroy
+    end
+  end
 end

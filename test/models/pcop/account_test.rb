@@ -53,4 +53,12 @@ class Pcop::AccountTest < ActiveSupport::TestCase
     @account.description = nil
     assert @account.valid?
   end
+
+  test "should also destroy child when the parent is destroyed" do
+    @account.save
+    @account.sub_accounts.create!(id: 112, name: 'test')
+    assert_difference 'Pcop::SubAccount.count', -1 do
+      @account.destroy
+    end
+  end
 end

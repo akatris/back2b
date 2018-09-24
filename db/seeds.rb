@@ -17,11 +17,13 @@ pcop_15 = class_1.accounts.create!(id: 15, name: "Provision pour charges - passi
 pcop_16 = class_1.accounts.create!(id: 16, name: "emprunts et dettes assimilés", description: "empty")
 pcop_17 = class_1.accounts.create!(id: 17, name: "dettes rattachées à des participations", description: "empty")
 
-Pcop::Class.create(id: 2, name: "comptes des immobilisations", description: "empty")
-Pcop::Class.create(id: 6, name: "comptes des charges", description: "empty")
-Pcop::Class.create(id: 7, name: "comptes des produits", description: "empty")
+Pcop::Category.create(id: 2, name: "comptes des immobilisations", description: "empty")
+Pcop::Category.create(id: 6, name: "comptes des charges", description: "empty")
+Pcop::Category.create(id: 7, name: "comptes des produits", description: "empty")
 
 if Rails.env.development?
+  # Create a simple user for testing
+  User.create!(username: 'sitraka', role: 'basic', password: 'password', password_confirmation: 'password')
   20.times do |n|
     User.create(username: Faker::Internet.username, role: "basic",
       password: 'password', password_confirmation: 'password')

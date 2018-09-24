@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_14_125254) do
+ActiveRecord::Schema.define(version: 2018_09_24_122001) do
+
+  create_table "establishments", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.integer "supply_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_establishments_on_name", unique: true
+    t.index ["supply_id"], name: "index_establishments_on_supply_id", unique: true
+  end
 
   create_table "pcop_accounts", force: :cascade do |t|
     t.string "name"
@@ -49,6 +58,12 @@ ActiveRecord::Schema.define(version: 2018_09_14_125254) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_pcop_sub_accounts_on_name", unique: true
     t.index ["pcop_account_id"], name: "index_pcop_sub_accounts_on_pcop_account_id"
+  end
+
+  create_table "supplies", force: :cascade do |t|
+    t.decimal "available", precision: 12, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

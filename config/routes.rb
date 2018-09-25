@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :pcops
+  resources :establishments
 
   root 'static_pages#home'
 

@@ -1,2 +1,8 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<% if logged_in? && !has_establishment? %>
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Attention!</h4>
+  <div>Aucun etablissement n'est associé à votre compte.
+  <%= link_to 'Créer un établissement', '#', class: 'btn-success btn btn-sm' %>
+  </div>
+</div>
+<% end %>

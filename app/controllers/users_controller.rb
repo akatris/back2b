@@ -23,6 +23,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     @user.role = "basic"
+    supply = Supply.create(available: 0)
+    establishment = supply.create_establishment name: 'default'
+    @user.establishment = establishment
     if @user.save
       flash[:success] = 'Account created'
       redirect_to root_url

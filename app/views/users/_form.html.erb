@@ -1,5 +1,5 @@
-<%= form_for @user do |f| %>
-  <%= render partial: 'shared/error_messages', locals: {model: @user} %>
+<%= form_for user do |f| %>
+  <%= render partial: 'shared/error_messages', locals: {model: user} %>
   <div class="form-group">
     <%= f.label :username %>
     <%= f.text_field :username, class: 'form-control' %>
@@ -15,17 +15,17 @@
     <%= f.text_field :password_confirmation, class: 'form-control' %>
   </div>
 
-  <% unless @user.new_record? %>
+  <% unless user.new_record? %>
     <div class="form-group">
       <%= f.label :role %>
       <%= f.select :role do %>
         <% User.roles.each do |key, role| %>
-          <%= content_tag :option, key, value: key, selected: @user.role == key %>
+          <%= content_tag :option, key, value: key, selected: user.role == key %>
         <% end %>
       <% end %>
     </div>
   <% end %>
 
-  <%= f.submit @user.new_record? ? "Create my account" : "Save",
+  <%= f.submit user.new_record? ? "Create my account" : "Save",
     class: 'btn btn-primary' %>
 <% end %>

@@ -37,9 +37,9 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      redirect_to user_path(@user)
+      redirect_to settings_profile_path
     else
-      render 'edit'
+      render 'settings/profile'
     end
   end
 

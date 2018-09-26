@@ -1,2 +1,2 @@
 <h1 class="text-center">edit information of <small><%= @user.username %></small></h1>
-<%= render 'users/form' %>
+<%= render partial: 'users/form', locals: { user: @user} %>

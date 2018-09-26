@@ -11,7 +11,7 @@ basic_user:
   id: 2
   username: basic
   password_digest: <%= User.digest('password') %>
-  establishment: null  
+  establishment: one
   role: basic
 
 another_user:

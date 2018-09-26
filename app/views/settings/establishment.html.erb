@@ -1,2 +1,9 @@
-<h1>Settings#establishment</h1>
-<p>Find me in app/views/settings/establishment.html.erb</p>
+<div class="row">
+  <div class="col-md-3">
+    <%= render 'settings/nav' %>
+  </div>
+  <div class="col-md-9">
+    <h2>Etablissement</h2>
+    <%= render partial: 'establishments/form', locals: { establishment: @establishment } %>
+  </div>
+</div>

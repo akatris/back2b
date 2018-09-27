@@ -25,5 +25,7 @@ class EstablishmentUpdateTest < ActionDispatch::IntegrationTest
       }
     }
     assert_redirected_to settings_establishment_path
+    @user.reload
+    assert_equal @user.establishment.name, 'fako'
   end
 end

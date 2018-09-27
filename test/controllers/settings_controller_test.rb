@@ -24,4 +24,9 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template 'establishments/_form'
   end
+
+  test "should get supply" do
+    get settings_supply_url
+    assert_response :success
+  end
 end

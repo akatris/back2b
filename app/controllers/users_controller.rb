@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 
     def filter_edit
       user = User.find(params[:id])
-      redirect_to user_path(current_user) unless (current_user.id == user.id || admin?)
+      redirect_to user_path(current_user) unless current_user.id == user.id || admin?
     end
 
     def account_owner

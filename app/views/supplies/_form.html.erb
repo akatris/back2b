@@ -1,0 +1,8 @@
+<%= form_for supply do |f| %>
+  <%= render partial: 'shared/error_messages', locals: { model: supply } %>
+  <div class="form-group">
+    <%= f.label :available %>
+    <%= f.text_field :available, class: 'form-control' %>
+  </div>
+  <%= f.submit 'Enregistrer', class: 'btn btn-primary' %>
+<% end %>

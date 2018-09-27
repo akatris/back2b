@@ -7,4 +7,8 @@ class SettingsController < ApplicationController
   def establishment
     @establishment = current_user.establishment
   end
+
+  def supply
+    @supply = current_user.establishment.supply
+  end
 end

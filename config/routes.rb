@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :seasons
   get '/settings', to: 'settings#profile'
   get 'settings/profile'
   get 'settings/establishment'

@@ -23,7 +23,11 @@ Pcop::Category.create(id: 7, name: "comptes des produits", description: "empty")
 
 if Rails.env.development?
   # Create a simple user for testing
-  User.create!(username: 'sitraka', role: 'basic', password: 'password', password_confirmation: 'password')
+  user = User.create!(username: 'sitraka', role: 'basic', password: 'password', password_confirmation: 'password')
+  supply = Supply.create!(available: 100000)
+  establishment = supply.create_establishment(name: 'CAFPA')
+  user.establishment = establishment
+  user.save
   20.times do |n|
     User.create(username: Faker::Internet.username, role: "basic",
       password: 'password', password_confirmation: 'password')

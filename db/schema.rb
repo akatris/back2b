@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_124405) do
+ActiveRecord::Schema.define(version: 2018_09_27_150943) do
 
   create_table "establishments", force: :cascade do |t|
     t.string "name", limit: 255
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(version: 2018_09_24_124405) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_pcop_sub_accounts_on_name", unique: true
     t.index ["pcop_account_id"], name: "index_pcop_sub_accounts_on_pcop_account_id"
+  end
+
+  create_table "seasons", force: :cascade do |t|
+    t.integer "establishment_id"
+    t.string "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["establishment_id"], name: "index_seasons_on_establishment_id"
   end
 
   create_table "supplies", force: :cascade do |t|

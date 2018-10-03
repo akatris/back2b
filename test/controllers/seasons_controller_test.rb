@@ -47,4 +47,9 @@ class SeasonsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to seasons_url
   end
+
+  test "should return the last created" do
+    get last_seasons_path
+    assert_response :success
+  end
 end

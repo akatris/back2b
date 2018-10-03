@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :seasons
+  resources :seasons do
+    collection do
+      get 'last'
+    end
+  end
   get '/settings', to: 'settings#profile'
   get 'settings/profile'
   get 'settings/establishment'

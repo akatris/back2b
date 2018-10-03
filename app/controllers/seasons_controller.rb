@@ -61,6 +61,15 @@ class SeasonsController < ApplicationController
     end
   end
 
+  def last
+    establishment = current_user.establishment
+    @season = Season.where(establishment: establishment).last
+    respond_to do |format|
+      format.html { render :last }
+      format.json { render json: @season.to_json, status: :ok }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_season

@@ -2,6 +2,10 @@ class PcopsController < ApplicationController
   # display a list of pcop entities
   def index
     @categories = Pcop::Category.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @categories }
+    end
   end
 
   def new
@@ -52,7 +56,7 @@ class PcopsController < ApplicationController
     type = Pcop::type params[:id]
     pcop = type.find params[:id]
     pcop.destroy
-    redirect_to pcops_path   
+    redirect_to pcops_path
   end
 
   private

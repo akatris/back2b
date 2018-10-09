@@ -5,4 +5,24 @@ class Pcop::Category < ApplicationRecord
   validates :id, format: { with: /\A[1-7]{1}\z/ }, uniqueness: true
   validates :name, length: { maximum: 255 }, presence: true, uniqueness: true
   validates :description, length: { maximum: 255 }
+
+  def as_json(options={})
+    super(:only => [:id, :name],
+      :include => {
+        :accounts => {
+          :only => [:id, :name],
+          :include => {
+            :sub_accounts => {
+              :only => [:id, :name],
+              :include => {
+                :rubrics => {
+                  :only => [:id, :name]
+                }
+              }
+            }
+          }
+        }
+      }
+    )
+  end
 end

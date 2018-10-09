@@ -19,4 +19,12 @@ class PcopsControllerTest < ActionDispatch::IntegrationTest
     get edit_pcop_path @category
     assert_response :success
   end
+
+  test "should responde to xhr" do
+    get pcops_path, params: {format: :json}
+    body = JSON.parse @response.body
+    assert_equal 'application/json', @response.content_type
+    assert_instance_of Array, body
+    assert_includes body[0], 'accounts'
+  end
 end

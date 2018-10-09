@@ -8,3 +8,7 @@
 // layout file, like app/views/layouts/application.html.erb
 
 console.log('Hello World from Webpacker')
+fetch('http://localhost:3000/pcops.json')
+  .then(response => response.json())
+  .then(r => console.log(r))
+  .catch(error => console.log(error))

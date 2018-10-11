@@ -1,6 +1,5 @@
 <h1>Liste des années budgetaires</h1>
 
-<%= render  'error' %>
 
 <%= link_to 'Nouvelle années budgetaire', new_season_path, class: 'btn btn-primary',
   data: { toggle: 'modal', target: '#newSeason' } %>
@@ -22,6 +21,11 @@
     </div>
   </div>
 </div>
-<% @seasons.each do |season| %>
-  <%= season.year %> 
-<% end %>
+
+<%= render  'error' %>
+
+<div class="card-group">
+  <% @seasons.each do |season| %>
+    <%= render partial: 'card', locals: { season: season } %> 
+  <% end %>
+</div>

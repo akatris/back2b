@@ -7,16 +7,16 @@ admin:
   establishment: null
   role: admin
 
-basic_user:
-  id: 2
-  username: basic
-  password_digest: <%= User.digest('password') %>
-  establishment: one
-  role: basic
-
 another_user:
   id: 3
   establishment: null
   username: another
   password_digest: <%= User.digest('password') %>
   role: basic
+
+one:
+        id: 4
+        username: user_one
+        password_digest: <%= User.digest('password') %>
+        establishment: one
+        role: basic

@@ -3,7 +3,7 @@ require 'test_helper'
 class SettingsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user = users :basic_user
+    @user = users :one
     log_in_as @user
   end
 

@@ -4,7 +4,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @admin = users :admin
-    @basic_user = users :basic_user
+    @basic_user = users :one
     @another_user = users :another_user
   end
 

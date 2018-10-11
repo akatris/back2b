@@ -28,7 +28,7 @@ if Rails.env.development?
   establishment = supply.create_establishment(name: 'CAFPA')
   user.establishment = establishment
   user.save
-  20.times do |n|
+  20.times do |n|true
     User.create(username: Faker::Internet.username, role: "basic",
       password: 'password', password_confirmation: 'password')
   end

@@ -26,5 +26,10 @@ class SeasonsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_equal "Impossible de créer l'année budgetaire", flash[:alert]
   end
+
+  test "should view detail page" do
+    get season_path @season_one
+    assert_response :success
+  end
 end
 

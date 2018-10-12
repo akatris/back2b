@@ -4,6 +4,10 @@ class SeasonsController < ApplicationController
     @season = Season.new
   end
 
+  def show
+    @season = Season.find params[:id]
+  end
+
   def create
     @seasons = Season.all
     @season = Season.new season_params

@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2018_10_10_134107) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "establishments", force: :cascade do |t|
     t.string "name", limit: 255
-    t.integer "supply_id"
+    t.bigint "supply_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_establishments_on_name", unique: true
@@ -24,7 +27,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_134107) do
   create_table "pcop_accounts", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "pcop_category_id"
+    t.bigint "pcop_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_pcop_accounts_on_name", unique: true
@@ -43,7 +46,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_134107) do
     t.string "name"
     t.text "description"
     t.text "eligible_transactions"
-    t.integer "pcop_sub_account_id"
+    t.bigint "pcop_sub_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_pcop_rubrics_on_name", unique: true
@@ -53,7 +56,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_134107) do
   create_table "pcop_sub_accounts", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "pcop_account_id"
+    t.bigint "pcop_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_pcop_sub_accounts_on_name", unique: true
@@ -62,7 +65,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_134107) do
 
   create_table "seasons", force: :cascade do |t|
     t.string "year"
-    t.integer "establishment_id"
+    t.bigint "establishment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["establishment_id"], name: "index_seasons_on_establishment_id"
@@ -80,9 +83,13 @@ ActiveRecord::Schema.define(version: 2018_10_10_134107) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role"
-    t.integer "establishment_id"
+    t.bigint "establishment_id"
     t.index ["establishment_id"], name: "index_users_on_establishment_id", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "pcop_accounts", "pcop_categories"
+  add_foreign_key "pcop_rubrics", "pcop_sub_accounts"
+  add_foreign_key "pcop_sub_accounts", "pcop_accounts"
+  add_foreign_key "seasons", "establishments"
 end

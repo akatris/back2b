@@ -7,7 +7,7 @@ class Pcop::Category < ApplicationRecord
   validates :description, length: { maximum: 255 }
 
   def as_json(options={})
-    super(:only => [:id, :name],
+    super(:only => [:id, :name, :description],
       :include => {
         :accounts => {
           :only => [:id, :name],

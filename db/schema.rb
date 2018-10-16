@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_131053) do
+ActiveRecord::Schema.define(version: 2018_10_16_143838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "budget_items", force: :cascade do |t|
+    t.bigint "season_id"
+    t.bigint "pcop_rubric_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pcop_rubric_id"], name: "index_budget_items_on_pcop_rubric_id"
+    t.index ["season_id"], name: "index_budget_items_on_season_id"
+  end
 
   create_table "establishments", force: :cascade do |t|
     t.string "name", limit: 255
@@ -87,6 +96,8 @@ ActiveRecord::Schema.define(version: 2018_10_15_131053) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "budget_items", "pcop_rubrics"
+  add_foreign_key "budget_items", "seasons"
   add_foreign_key "pcop_accounts", "pcop_categories"
   add_foreign_key "pcop_rubrics", "pcop_sub_accounts"
   add_foreign_key "pcop_sub_accounts", "pcop_accounts"

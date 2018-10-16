@@ -1,3 +1,27 @@
 <div id="season-detail"></div>
-<%= javascript_pack_tag 'hello_react' %>
+
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th>N° de compte</th>
+      <th>Compte</th>
+      <th>Description</th>
+      <th>Montant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <%= render partial: 'pcop_row', locals: {rubric: category} %>
+      <% category.accounts.each do |account| %>
+        <%= render partial: 'pcop_row', locals: {rubric: account} %>
+        <% account.sub_accounts.each do |sub_account| %>
+          <%= render partial: 'pcop_row', locals: {rubric: sub_account} %>
+          <% sub_account.rubrics.each do |rubric| %>
+            <%= render partial: 'pcop_row', locals: {rubric: rubric} %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
 

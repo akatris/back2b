@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :accounts
     resources :sub_accounts
+    resources :rubrics
   end
   root 'static_pages#home'
 

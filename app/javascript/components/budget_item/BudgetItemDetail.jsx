@@ -5,6 +5,7 @@ export default class BudgetItemDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      categories: [],
       data: []
     };
   }

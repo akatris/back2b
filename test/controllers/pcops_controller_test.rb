@@ -25,6 +25,5 @@ class PcopsControllerTest < ActionDispatch::IntegrationTest
     body = JSON.parse @response.body
     assert_equal 'application/json', @response.content_type
     assert_instance_of Array, body
-    assert_includes body[0], 'accounts'
   end
 end

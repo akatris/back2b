@@ -1,0 +1,2 @@
+module Pcop::CategoriesHelper
+end

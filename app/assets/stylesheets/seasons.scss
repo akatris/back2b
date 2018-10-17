@@ -1,3 +1,28 @@
 // Place all the styles related to the Seasons controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.class-name {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.sub-account-id > span {
+  padding-left: 30px;
+}
+
+.rubric-id > span {
+  padding-left: 60px;
+}
+
+.account-name {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.sub-account-name {
+  font-weight: bold;
+}
+
+.col-id {
+  width: 100px;
+}

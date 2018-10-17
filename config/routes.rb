@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   namespace :pcop do
     resources :categories
+    resources :accounts
   end
   root 'static_pages#home'
 

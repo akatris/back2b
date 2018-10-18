@@ -1,8 +1,8 @@
 class Pcop::RubricsController < ApplicationController
   def index
-    @sub_accounts = Pcop::SubAccount.all
+    @rubrics = Pcop::Rubric.all
     respond_to do |format|
-      format.json {render json: @sub_accounts}
+      format.json {render json: @rubrics}
     end
   end
 end

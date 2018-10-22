@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1>Details du budget <%= @season.year %></h1>
 
 <table class="table">
@@ -49,3 +50,31 @@
     </div>
   </div>
 </div>
+||||||| merged common ancestors
+<div id="BudgetItemDetail"></div>
+<%= javascript_pack_tag 'budget_item_detail_react' %>
+=======
+<h1>Details du budget <%= @season.year %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">N° compte</th>
+      <th scope="col">Intitulé</th>
+      <th scope="col">Description</th>
+      <th scope="col">Montant</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @season_detail.data.each do |rubric| %>
+      <tr>
+        <th scope="row"><%= rubric.id %></th>
+        <td><%= rubric.name %></th>
+        <td><%= rubric.description %></td>
+        <td>0</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+>>>>>>> 3b71c4a8f346abb134d3b303c663a27e1d53d142

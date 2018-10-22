@@ -1,8 +1,0 @@
-<%= form_for establishment do |f| %>
-  <%= render partial: 'shared/error_messages', locals: { model: establishment } %>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
-  <%= f.submit 'Enregister', class: 'btn btn-primary' %>
-<% end %>

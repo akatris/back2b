@@ -1,2 +1,0 @@
-module Pcop::RubricsHelper
-end

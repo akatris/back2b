@@ -1,2 +1,0 @@
-module Pcop::SubAccountsHelper
-end

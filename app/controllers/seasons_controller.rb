@@ -6,7 +6,7 @@ class SeasonsController < ApplicationController
 
   def show
     @season = Season.find params[:id]
-    @categories = Pcop::Category.all
+    @season_detail = SeasonDetail.new
   end
 
   def create

@@ -5,4 +5,10 @@ class Pcop::Rubric < ApplicationRecord
   validates   :name, presence: true, length: { maximum: 255 }
   validates   :description, length: { maximum: 500 }
   validates   :eligible_transactions, length: { maximum: 500 }
+
+  def get_budget_item(season)
+    budget_item = BudgetItem.where(
+      "pcop_rubric_id = ? AND season_id = ?", self.id, season.id)
+    budget_item || BudgetItem.create(pcop_rubric: self, season: season)
+  end
 end

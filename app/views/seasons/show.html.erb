@@ -1,2 +1,51 @@
-<div id="BudgetItemDetail"></div>
-<%= javascript_pack_tag 'budget_item_detail_react' %>
+<h1>Details du budget <%= @season.year %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">N° compte</th>
+      <th scope="col">Intitulé</th>
+      <th scope="col">Description</th>
+      <th scope="col">Montant</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @season_detail.data.each do |rubric| %>
+      <tr>
+        <th scope="row"><%= rubric["id"] %></th>
+        <td><%= rubric["name"] %></th>
+        <td><%= rubric["description"] %></td>
+        <td>0</td>
+        <td>
+          <%= link_to 'modifier', "#", data: {
+            toggle: "modal",
+            target: "#updateBudgetAmount",
+            id: rubric["id"]
+          } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="modal"
+     id="updateBudgetAmount"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="updateBudgetAmountLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateBudgetAmountLabel">
+          Mettre à jour le montant
+        </h5>
+      </div>
+
+      <div class="modal-body">
+        Hello
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,34 +1,25 @@
 'use strict';
 
 const Joi = require('joi');
+const Pcop = require('../lib/pcop');
 
 const create = {
     method: 'POST',
     path: '/pcops',
     handler: async (request, h) => {
 
-        const {
-            id, name, description,
-            eligible_transactions
-        } = request.payload;
-        const db = request.server.plugins.mongodb.db;
-        const {
-            insertedId,
-            result } = await db.collection('categories').insertOne({
-            id,
-            name,
-            description,
-            eligible_transactions
-        });
-        return { insertedId, result };
+        const { id, name, description } = request.payload;
+        const pcop = new Pcop({ id, name, description });
+        const db = request.server.plugins.mongodb.database;
+        const result = await pcop.save(db);
+        return result;
     },
     options: {
         validate: {
             payload: Joi.object().keys({
                 id: Joi.number().required(),
                 name: Joi.string(),
-                description: Joi.string(),
-                eligible_transactions: Joi.array()
+                description: Joi.string()
             })
         }
     }

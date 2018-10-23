@@ -1,25 +1,13 @@
 'use strict';
 
-const { MongoClient } = require('mongodb');
-
-const url = 'mongodb://localhost:27017';
-const dbName = 'cafpadb';
-
-const connect = async () => {
-
-    const client = new MongoClient(url, { useNewUrlParser: true });
-    try {
-        await client.connect();
-        return client.db(dbName);
-    }
-    catch (error) {}
-};
+const Database = require('../lib/database');
 
 exports.plugin = {
     name: 'mongodb',
     register: async (server, options) => {
 
-        const db = await connect();
-        server.expose('db', db);
+        const database = new Database(options.uri, options.dbName);
+        await database.connect();
+        server.expose('database', database.get());
     }
 };

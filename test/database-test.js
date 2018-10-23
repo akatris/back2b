@@ -6,9 +6,9 @@ const Database = require('../lib/database.js');
 
 const { expect } = require('code');
 
-const { before, describe, it } = exports.lab = Lab.script();
+const { before, experiment, test } = exports.lab = Lab.script();
 
-describe('MongoDB', () => {
+experiment('Database', () => {
 
     let database = null;
 
@@ -18,25 +18,22 @@ describe('MongoDB', () => {
         database = new Database('mongodb://localhost:27017/test');
     });
 
-    describe('Database', () => {
+    test('connect() sets url and dbName', async () => {
 
-        it('should set url and dbName', async () => {
+        await database.connect();
+        expect(database.client.isConnected()).to.be.true();
+    });
 
-            await database.connect();
-            expect(database.client.isConnected()).to.be.true();
-        });
+    test('connect() returns the database connection', async () => {
 
-        it('returns the database connection', async () => {
+        // I'm am pretty sure that example.com does not use mongo :D
+        const db = await database.connect();
+        expect(db).to.be.not.null().and.not.undefined();
+    });
 
-            // I'm am pretty sure that example.com does not use mongo :D
-            const db = await database.connect();
-            expect(db).to.be.not.null().and.not.undefined();
-        });
+    test('get() returns a connection to the database', async () => {
 
-        it('get() should return a connection to the database', async () => {
-
-            await database.connect();
-            expect(database.get()).to.be.not.null().and.not.undefined();
-        });
+        await database.connect();
+        expect(database.get()).to.be.not.null().and.not.undefined();
     });
 });

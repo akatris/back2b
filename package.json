@@ -5,7 +5,9 @@
   "dependencies": {
     "hapi": "17.x.x",
     "hapi-auto-route": "2.x.x",
-    "mongodb": "3.x.x"
+    "hoek": "^5.0.4",
+    "mongodb": "3.x.x",
+    "pluralize": "^7.0.0"
   },
   "devDependencies": {
     "code": "5.x.x",

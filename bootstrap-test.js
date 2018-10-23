@@ -16,4 +16,4 @@ const reset = async function () {
     await migration.run(up);
 };
 
-reset();
+module.exports = { reset };

@@ -2,7 +2,7 @@
 'use strict';
 
 const Lab = require('lab');
-const MongoDB = require('../lib/mongodb.js');
+const Database = require('../lib/database.js');
 
 const { expect } = require('code');
 
@@ -15,19 +15,7 @@ describe('MongoDB', () => {
     before(() => {
 
         // We expect that users have'not deleted the database test :D
-        database = new MongoDB.Database('mongodb://localhost:27017/test');
-    });
-
-    describe('#getURL()', () => {
-
-        it('should returns mongo url', () => {
-
-            const hostname = 'localhost';
-            const port = 27017;
-            const dbName = 'fako';
-            expect(MongoDB.buildUrl(hostname, port, dbName))
-                .to.be.equal('mongodb://localhost:27017/fako');
-        });
+        database = new Database('mongodb://localhost:27017/test');
     });
 
     describe('Database', () => {

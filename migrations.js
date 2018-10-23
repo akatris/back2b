@@ -5,9 +5,9 @@ const up = async function (db) {
     await db.createCollection('categories');
 };
 
-const down = function (db) {
+const down = async function (db) {
 
-    console.log('down');
+    await db.dropCollection('categories');
 };
 
 module.exports = { up, down };

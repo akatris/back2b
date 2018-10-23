@@ -3,13 +3,11 @@
 const index = {
     method: 'GET',
     path: '/pcop/categories',
-    handler: (request, h) => 'hello'
+    handler: (request, h) => {
+
+        return [];
+    }
 };
 
-const create = {
-    method: 'POST',
-    path: '/pcop/categories',
-    handler: (request, h) => 'create'
-};
 
-module.exports = [index, create];
+module.exports = [index];

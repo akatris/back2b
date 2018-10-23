@@ -4,39 +4,54 @@ const dotenv = require('dotenv');
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
-const {up} = require('./migrations');
+const {up, down} = require('./migrations');
 const {Database, buildUrl} = require("./lib/database");
 
-async function run() {
-  const mongoUrl = buildUrl(process.env.MONGODB_HOST,
-    process.env.MONGODB_PORT,
-    process.env.MONGODB_DBNAME);
-  const mongoTestUrl = buildUrl(process.env.TEST_MONGODB_HOST,
-    process.env.TEST_MONGODB_PORT,
-    process.env.TEST_MONGODB_DBNAME);
+const DATABASES = [{
+  host: process.env.TEST_MONGODB_HOST,
+  port: process.env.TEST_MONGODB_PORT,
+  dbName: process.env.TEST_MONGODB_DBNAME
+}, {
+  host: process.env.MONGODB_HOST,
+  port: process.env.MONGODB_PORT,
+  dbName: process.env.MONGODB_DBNAME
+}];
 
-  const dbName = process.env.MONGODB_DBNAME;
-  const dbNameTest = process.env.TEST_MONGODB_DBNAME;
 
+async function connect({host, port, dbName}) {
+  const mongoUrl = buildUrl(host, port, dbName);
   const database = new Database(mongoUrl, dbName);
-  const testDatabase = new Database(mongoTestUrl, dbNameTest);
-
   await database.connect();
-  await testDatabase.connect();
+  return database;
+}
 
-  if (process.argv[2] == 'migration') {
-    if (process.argv[3] == 'up') {
-      try {
-        await up(database.get());
-        await up(testDatabase.get());
-      } catch (e) {
-        console.log(e);
-      }
-    }
+async function executeMigration(databaseInfo, action) {
+  const database = await connect(databaseInfo);
+  try {
+    await action(database.get());
+  } catch (e) {
+    console.log(e);
   }
   database.client.close();
-  testDatabase.client.close();
 }
-// jksldf:w
-run();
 
+async function migrate(databases, action) {
+  for (const database of databases) {
+    await executeMigration(database, action);
+  }
+
+}
+
+async function run() {
+  if (process.argv[2] == 'migration') {
+    if (process.argv[3] == 'up') {
+      await migrate(DATABASES, up);
+    }
+
+    if (process.argv[3] == "down") {
+      await migrate(DATABASES, down);
+    }
+  }
+}
+
+run();

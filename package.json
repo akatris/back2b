@@ -1,14 +1,15 @@
 {
   "scripts": {
-    "test": "lab --lint --coverage"
+    "test": "node -r ./bootstrap-test.js node_modules/.bin/lab"
   },
   "dependencies": {
-    "hapi": "^17.6.0",
-    "hapi-auto-route": "^2.0.4",
+    "hapi": "17.x.x",
+    "hapi-auto-route": "2.x.x",
     "mongodb": "3.x.x"
   },
   "devDependencies": {
     "code": "5.x.x",
+    "dotenv": "^6.1.0",
     "lab": "16.x.x"
   }
 }

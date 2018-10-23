@@ -339,6 +339,11 @@ doctrine@^2.1.0:
   dependencies:
     esutils "^2.0.2"
 
+dotenv@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.1.0.tgz#9853b6ca98292acb7dec67a95018fa40bccff42c"
+  integrity sha512-/veDn2ztgRlB7gKmE3i9f6CmDIyXAy6d5nBq+whO9SLX+Zs1sXEgFLPi+aSuWqUuusMfbi84fT8j34fs1HaYUw==
+
 escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
@@ -568,7 +573,7 @@ handlebars@4.x.x:
   optionalDependencies:
     uglify-js "^3.1.4"
 
-hapi-auto-route@^2.0.4:
+hapi-auto-route@2.x.x:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/hapi-auto-route/-/hapi-auto-route-2.0.4.tgz#7eb26939d1eaac7369be453f892403ce21f36cd2"
   integrity sha512-FeoREoE0q0iNW3LafafG2OjXLe5Aw5CI453t9MCZ/HehX4twkfM+LmjzXwG59CN1DfU+YM22kowotY4uSMgIDg==
@@ -596,7 +601,7 @@ hapi-scope-start@2.x.x:
   resolved "https://registry.yarnpkg.com/hapi-scope-start/-/hapi-scope-start-2.1.1.tgz#7495a726fe72b7bca8de2cdcc1d87cd8ce6ab4f2"
   integrity sha1-dJWnJv5yt7yo3izcwdh82M5qtPI=
 
-hapi@^17.6.0:
+hapi@17.x.x:
   version "17.6.0"
   resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.6.0.tgz#158a2276253a8de727be678c4daeb1f73929e588"
   integrity sha512-GSHjE1hJExluAukrT/QuYSk96irmbYBDd3wOgywiHsPoR2QeKgDnIttD+dB6NbADEmSdb9MS5gTUIVq0uHTdkA==
@@ -906,7 +911,7 @@ mongodb-core@3.1.7:
   optionalDependencies:
     saslprep "^1.0.0"
 
-mongodb@^3.1.8:
+mongodb@3.x.x:
   version "3.1.8"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.1.8.tgz#df8084fda2efdbaddd05dfd6a269891fc4cc72df"
   integrity sha512-yNKwYxQ6m00NV6+pMoWoheFTHSQVv1KkSrfOhRDYMILGWDYtUtQRqHrFqU75rmPIY8hMozVft8zdC4KYMWaM3Q==

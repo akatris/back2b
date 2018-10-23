@@ -1,5 +1,13 @@
-async function up(db) {
-  await db.createCollection('categories');
-}
+'use strict';
 
-module.exports = {up};
+const up = async function (db) {
+
+    await db.createCollection('categories');
+};
+
+const down = function (db) {
+
+    console.log('down');
+};
+
+module.exports = { up, down };

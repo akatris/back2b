@@ -21,15 +21,4 @@ describe('/pcops/categories', () => {
         expect(result.statusCode).equal(200);
     });
 
-    describe('POST /pcop/categories', () => {
-
-        it('should exists', async () => {
-
-            const result = await server.inject({
-                method: 'POST',
-                url: '/pcop/categories'
-            });
-            expect(result.statusCode).equal(200);
-        });
-    });
 });

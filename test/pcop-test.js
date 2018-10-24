@@ -17,13 +17,24 @@ experiment('Pcop', () => {
     let rubric = null;
     let unknown = null;
 
-    before(() => {
+    let db = null;
+    let server = null;
 
-        category = new Pcop({ _id: 1, name: 'Category', description: 'Description' });
-        account = new Pcop({ _id: 11, name: 'Category', description: 'Description' });
-        subaccount = new Pcop({ _id: 111, name: 'Category', description: 'Description' });
-        rubric = new Pcop({ _id: 1111, name: 'Category', description: 'Description' });
-        unknown = new Pcop({ _id: 111111 });
+    beforeEach(async () => {
+
+        await reset();
+    });
+
+    before(async () => {
+
+        server = await init();
+        db = server.plugins.mongodb.database;
+
+        category = new Pcop({ id: 9, name: 'Category', description: 'Description' });
+        account = new Pcop({ id: 99, name: 'Category', description: 'Description' });
+        subaccount = new Pcop({ id: 999, name: 'Category', description: 'Description' });
+        rubric = new Pcop({ id: 9999, name: 'Category', description: 'Description' });
+        unknown = new Pcop({ id: 111111 });
     });
 
     test('constructor() should sets field', () => {
@@ -44,19 +55,6 @@ experiment('Pcop', () => {
 
     experiment('save()', () => {
 
-        let db = null;
-
-        before(async () => {
-
-            const server = await init();
-            db = server.plugins.mongodb.database;
-        });
-
-        beforeEach(async () => {
-
-            await reset();
-        });
-
         test('return object on success', async () => {
 
             const result = await category.save(db);
@@ -67,6 +65,23 @@ experiment('Pcop', () => {
 
             const result = await unknown.save(db);
             expect(result.ok).to.equal(0);
+        });
+    });
+
+    experiment('all()', () => {
+
+        test('return an object', async () => {
+
+            await category.save(db);
+            await account.save(db);
+            await subaccount.save(db);
+            await rubric.save(db);
+            const result = await Pcop.all(db);
+            expect(result.data).to.includes(['categories', 'accounts', 'subaccounts', 'rubrics']);
+            expect(result.data.categories).to.be.an.array().and.not.empty();
+            expect(result.data.accounts).to.be.an.array().and.not.empty();
+            expect(result.data.subaccounts).to.be.an.array().and.not.empty();
+            expect(result.data.rubrics).to.be.an.array().and.not.empty();
         });
     });
 });

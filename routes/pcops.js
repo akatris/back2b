@@ -25,4 +25,15 @@ const create = {
     }
 };
 
-module.exports = [create];
+const index = {
+    method: 'GET',
+    path: '/pcops',
+    handler: async function (request, h) {
+
+        const db = request.server.plugins.mongodb.database;
+        const pcops = await Pcop.all(db);
+        return pcops;
+    }
+};
+
+module.exports = [create, index];

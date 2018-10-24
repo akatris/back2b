@@ -3,6 +3,7 @@
     "test": "node -r ./bootstrap-test.js node_modules/.bin/lab"
   },
   "dependencies": {
+    "boom": "^7.2.0",
     "hapi": "17.x.x",
     "hapi-auto-route": "2.x.x",
     "hoek": "^5.0.4",

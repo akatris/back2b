@@ -1,5 +1,6 @@
 'use strict';
 
+const Boom = require('boom');
 const Joi = require('joi');
 const Pcop = require('../lib/pcop');
 
@@ -11,15 +12,22 @@ const create = {
         const { id, name, description } = request.payload;
         const pcop = new Pcop({ id, name, description });
         const db = request.server.plugins.mongodb.database;
+
+        const exists = await Pcop.findById(db, id);
+        if (exists) {
+            return Boom.conflict('This id is already taken');
+        }
+
         const result = await pcop.save(db);
         return result;
     },
     options: {
+        cors: true,
         validate: {
             payload: Joi.object().keys({
-                id: Joi.number().required(),
-                name: Joi.string(),
-                description: Joi.string()
+                id: Joi.number().integer().min(1).max(9000).required(),
+                name: Joi.string().min(1).max(255).required(),
+                description: Joi.string().max(500)
             })
         }
     }

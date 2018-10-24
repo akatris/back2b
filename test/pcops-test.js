@@ -44,6 +44,32 @@ experiment('/pcops', () => {
             const result = await server.inject({ method: 'POST', url: '/pcops', payload: pcop });
             expect(result.statusCode).to.equal(200);
         });
+
+        test('payload id is required and should be valid', async () => {
+
+            await reset();
+            const pcop = { id: 'a', name: 'Cat', description: 'description' };
+            let result = await server.inject({ method: 'POST', url: '/pcops', payload: pcop });
+            expect(result.statusCode).to.equal(400);
+
+            pcop.id = 0;
+            result = await server.inject({ method: 'POST', url: '/pcops', payload: pcop });
+            expect(result.statusCode).to.equal(400);
+
+            pcop.id = 10000;
+            result = await server.inject({ method: 'POST', url: '/pcops', payload: pcop });
+            expect(result.statusCode).to.equal(400);
+        });
+
+        test('throw an error when id is already taken', async () => {
+
+            const pcop = { id: 1, name: 'Cat', description: 'description' };
+            let result = await server.inject({ method: 'POST', url: '/pcops', payload: pcop });
+            expect(result.statusCode).to.equal(200);
+
+            result = await server.inject({ method: 'POST', url: '/pcops', payload: pcop });
+            expect(result.statusCode).to.equal(409);
+        });
     });
 
     experiment('GET /pcops', () => {

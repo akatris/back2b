@@ -84,4 +84,20 @@ experiment('Pcop', () => {
             expect(result.data.rubrics).to.be.an.array().and.not.empty();
         });
     });
+
+    experiment('find()', () => {
+
+        test('return an object if found', async () => {
+
+            await category.save(db);
+            const result = await Pcop.findById(db, category._id);
+            expect(result).to.includes(['_id', 'name', 'description']);
+        });
+
+        test('return null when pcop is not find', async () => {
+
+            const result = await Pcop.findById(db, unknown._id);
+            expect(result).to.be.null();
+        });
+    });
 });

@@ -1,6 +1,7 @@
 'use strict';
 
 const Database = require('../lib/database');
+const { ObjectId } = require('mongodb');
 
 exports.plugin = {
     name: 'mongodb',
@@ -15,6 +16,7 @@ exports.plugin = {
         };
 
         server.expose('database', database.get());
+        server.expose('ObjectId', ObjectId);
         server.method('getDatabase', getDatabase);
     }
 };

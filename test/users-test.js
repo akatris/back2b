@@ -49,8 +49,6 @@ experiment('users', () => {
 
             result = await server.inject({ method: 'POST', url: '/users', headers, payload: requestPayload });
             expect(result.statusCode).equal(201);
-
-            console.log(result.headers);
             expect(result.headers['content-type']).to.equals('application/vnd.api+json');
         });
 
@@ -61,7 +59,6 @@ experiment('users', () => {
             expect(result.statusCode).equals(201);
             expect(payload.data).to.includes(['id', 'types', 'attributes', 'links']);
             expect(result.headers.location).to.be.a.string();
-            console.log(result.headers);
         });
 
         test('return 409 if username is already taken', async () => {
@@ -69,6 +66,22 @@ experiment('users', () => {
             await server.inject({ method: 'POST', url: '/users', headers, payload: requestPayload });
             const result = await server.inject({ method: 'POST', url: '/users', headers, payload: requestPayload });
             expect(result.statusCode).equals(409);
+            expect(result.headers['content-type']).equal('application/vnd.api+json');
+        });
+    });
+
+
+    experiment('GET /users/{id}', () => {
+
+        test('return 200 on success', async () => {
+
+            delete headers['content-type'];
+            const inserted = await server.inject({ method: 'POST', url: '/users', headers, payload: requestPayload });
+            const result = await server.inject({ method: 'GET', url: inserted.headers.location, headers });
+            const payload = JSON.parse(result.payload);
+            expect(result.statusCode).equals(200);
+            expect(payload.data).to.includes(['type', 'id', 'attributes']);
+
         });
     });
 });

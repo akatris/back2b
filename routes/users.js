@@ -9,11 +9,11 @@ const create = {
     path: '/users',
     handler: async function (request, h) {
 
-        const db = request.server.methods.getDatabase();
+        const db = request.server.plugins.mongodb.database;
 
         const user = request.payload.data.attributes;
         user.createdAt = Date.now();
-        user.updatedAt = undefined;
+        user.updatedAt = user.createdAt;
 
         // Check if username is taken.
         const usernameOwner = await db.collection('users').findOne({ username: user.username });
@@ -25,10 +25,7 @@ const create = {
         const links = { self: resourceLocation };
         const data = { id: insertedId, types: 'users', attributes: { username: user.username }, links };
 
-        return h.response({ data })
-            .header('content-type', 'application/vnd.api+json')
-            .code(201)
-            .location(resourceLocation);
+        return h.response({ data }).type('application/vnd.api+json').created().location(resourceLocation);
     },
     options: {
         validate: {
@@ -50,4 +47,29 @@ const create = {
     }
 };
 
-module.exports = [create];
+const detail = {
+    method: 'GET',
+    path: '/users/{id}',
+    handler: async function (request, h) {
+
+        const db = request.server.methods.getDatabase();
+        const ObjectId = request.server.plugins.mongodb.ObjectId;
+        const params = request.params;
+
+        const user = await db.collection('users').findOne(ObjectId(params.id));
+        const { _id, username, createdAt, updatedAt } = user;
+        const data = { id: _id, type: 'users', attributes: { username, createdAt, updatedAt } };
+        return h.response({ data })
+            .header('content-type', 'application/vnd.api+json');
+    },
+    options: {
+        validate: {
+            headers: function (value, options) {
+
+                Hoek.assert(value.accept === 'application/vnd.api+json', Boom.notAcceptable());
+            }
+        }
+    }
+};
+
+module.exports = [create, detail];

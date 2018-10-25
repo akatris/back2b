@@ -3,6 +3,7 @@
 const Hoek = require('hoek');
 const Boom = require('boom');
 const Joi = require('joi');
+const Password = require('../lib/password');
 
 const create = {
     method: 'POST',
@@ -18,6 +19,10 @@ const create = {
         // Check if username is taken.
         const usernameOwner = await db.collection('users').findOne({ username: user.username });
         Hoek.assert(usernameOwner === null, Boom.conflict('Username is already taken.'));
+
+        // hash password
+        const hash = await Password.hash(user.password);
+        user.hash = hash;
 
         const { insertedId } = await db.collection('users').insertOne(user);
         const resourceLocation = `${request.server.info.uri}/users/${insertedId}`;

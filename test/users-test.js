@@ -50,6 +50,7 @@ experiment('users', () => {
             result = await server.inject({ method: 'POST', url: '/users', headers, payload: requestPayload });
             expect(result.statusCode).equal(201);
             expect(result.headers['content-type']).to.equals('application/vnd.api+json');
+            expect(result.headers.location).to.exists();
         });
 
         test('return 201 on success', async () => {
@@ -81,7 +82,39 @@ experiment('users', () => {
             const payload = JSON.parse(result.payload);
             expect(result.statusCode).equals(200);
             expect(payload.data).to.includes(['type', 'id', 'attributes']);
+            expect(payload.links).to.includes('self').and.exists();
+        });
 
+        test('return 404 is user is not found', async () => {
+
+            delete headers['content-type'];
+            const result = await server.inject({ method: 'GET', url: '/users/123456789a34512345654334', headers });
+            expect(result.statusCode).equals(404);
+            expect(result.headers['content-type']).equals('application/vnd.api+json');
+        });
+
+        test('bad request', async () => {
+
+            delete headers['content-type'];
+            const result = await server.inject({ method: 'GET', url: '/users/123456789a3451234565433', headers });
+            expect(result.statusCode).equals(400);
+        });
+    });
+
+    experiment('GET /users', () => {
+
+        test('retun 200 on success', async () => {
+
+            await server.inject({ method: 'POST', url: '/users', headers, payload: requestPayload });
+
+            delete headers['content-type'];
+            const result = await server.inject({ method: 'GET', url: '/users', headers });
+            expect(result.statusCode).equals(200);
+
+            const { data, links } = JSON.parse(result.payload);
+            expect(data).length(1).and.array().and.not.empty();
+            expect(links.self).string().and.exists();
+            expect(result.headers['content-type']).equals('application/vnd.api+json');
         });
     });
 });

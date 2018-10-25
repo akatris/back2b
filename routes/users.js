@@ -62,9 +62,13 @@ const detail = {
         const params = request.params;
 
         const user = await db.collection('users').findOne(ObjectId(params.id));
+        Hoek.assert(user, Boom.notFound('User not found.'));
+
         const { _id, username, createdAt, updatedAt } = user;
         const data = { id: _id, type: 'users', attributes: { username, createdAt, updatedAt } };
-        return h.response({ data })
+        const links = { self: `${request.server.info.uri}/users/${_id}` };
+
+        return h.response({ data, links })
             .header('content-type', 'application/vnd.api+json');
     },
     options: {
@@ -72,9 +76,31 @@ const detail = {
             headers: function (value, options) {
 
                 Hoek.assert(value.accept === 'application/vnd.api+json', Boom.notAcceptable());
-            }
+            },
+            params: Joi.object().keys({
+                id: Joi.string().hex().length(24)
+            })
         }
     }
 };
 
-module.exports = [create, detail];
+const list = {
+    method: 'GET',
+    path: '/users',
+    handler: async function (request, h) {
+
+        const db = request.server.methods.getDatabase();
+
+        const users = await db.collection('users').find().toArray();
+        const data = users.map(({ _id, username, createdAt, updatedAt }) => {
+
+            return { type: 'users', id: _id, attributes: { username, createdAt, updatedAt } };
+        });
+
+        const links = { self: `${request.server.info.uri}/users` };
+
+        return h.response({ data, links }).type('application/vnd.api+json');
+    }
+};
+
+module.exports = [create, detail, list];

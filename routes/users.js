@@ -4,6 +4,7 @@ const Hoek = require('hoek');
 const Boom = require('boom');
 const Joi = require('joi');
 const Password = require('../lib/password');
+const { validatePostHeaders, validateGetHeaders } = require('../lib/validator');
 
 const create = {
     method: 'POST',
@@ -34,11 +35,7 @@ const create = {
     },
     options: {
         validate: {
-            headers: function (value, options) {
-
-                Hoek.assert(value['content-type'] === 'application/vnd.api+json', Boom.unsupportedMediaType());
-                Hoek.assert(value.accept === 'application/vnd.api+json', Boom.notAcceptable());
-            },
+            headers: validatePostHeaders,
             payload: Joi.object().keys({
                 data: Joi.object().keys({
                     type: Joi.string().only('users'),
@@ -73,10 +70,7 @@ const detail = {
     },
     options: {
         validate: {
-            headers: function (value, options) {
-
-                Hoek.assert(value.accept === 'application/vnd.api+json', Boom.notAcceptable());
-            },
+            headers: validateGetHeaders,
             params: Joi.object().keys({
                 id: Joi.string().hex().length(24)
             })

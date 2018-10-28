@@ -12,7 +12,6 @@ const create = {
     handler: async function (request, h) {
 
         const db = request.server.plugins.mongodb.database;
-
         const user = request.payload.data.attributes;
         user.createdAt = Date.now();
         user.updatedAt = user.createdAt;
@@ -34,6 +33,7 @@ const create = {
         return h.response({ data }).type('application/vnd.api+json').created().location(resourceLocation);
     },
     options: {
+        cors: true,
         validate: {
             headers: validatePostHeaders,
             payload: Joi.object().keys({

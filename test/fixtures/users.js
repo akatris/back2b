@@ -4,10 +4,7 @@
 const Faker = require('faker');
 
 
-const users = {};
-
-
-users.post = () => ({
+const post = () => ({
     method: 'post',
     url: '/users',
     headers: {
@@ -26,7 +23,7 @@ users.post = () => ({
 });
 
 
-users.get = (id) => ({
+const get = (id) => ({
     method: 'get',
     url: `/users/${id}`,
     headers: {
@@ -35,7 +32,7 @@ users.get = (id) => ({
 });
 
 
-users.all = () => ({
+const all = () => ({
     method: 'get',
     url: '/users',
     headers: {
@@ -44,4 +41,4 @@ users.all = () => ({
 });
 
 
-module.exports = { users };
+module.exports = { post, get, all };

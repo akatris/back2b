@@ -1,36 +1,42 @@
 'use strict';
 
+
 const Lab = require('lab');
 const Server = require('../index');
+const UserFixtures = require('./fixtures/users');
 const { expect } = require('code');
-const Fixtures = require('./_helpers');
+
 
 const { before, beforeEach, experiment, test } = exports.lab = Lab.script();
 
 
 experiment('users', () => {
 
+
     let server = null;
     let POST_USER_CONFIG = {};    // used as parameter for server.inject(POST_CONFIG);
     let GET_USER_CONFIG = {};
     let GET_ALL_USER_CONFIG = {};
+
 
     before(async () => {
 
         server = await Server();
     });
 
+
     beforeEach(async () => {
 
         await server.mongodb.reset();
-        POST_USER_CONFIG = Fixtures.users.post();
-        GET_ALL_USER_CONFIG = Fixtures.users.all();
+        POST_USER_CONFIG = UserFixtures.post();
+        GET_ALL_USER_CONFIG = UserFixtures.all();
 
         // We need to get an Id
-        const newUser = await server.inject(Fixtures.users.post());
+        const newUser = await server.inject(UserFixtures.post());
         const newUserPayload = JSON.parse(newUser.payload);
-        GET_USER_CONFIG = Fixtures.users.get(newUserPayload.data.id);
+        GET_USER_CONFIG = UserFixtures.get(newUserPayload.data.id);
     });
+
 
     experiment('POST /users', () => {
 
@@ -40,17 +46,18 @@ experiment('users', () => {
             let result = await server.inject(POST_USER_CONFIG);
             expect(result.statusCode).equal(415);
 
-            POST_USER_CONFIG = Fixtures.users.post();
+            POST_USER_CONFIG = UserFixtures.post();
             delete POST_USER_CONFIG.headers.accept;
             result = await server.inject(POST_USER_CONFIG);
             expect(result.statusCode).equal(406);
 
-            POST_USER_CONFIG = Fixtures.users.post();
+            POST_USER_CONFIG = UserFixtures.post();
             result = await server.inject(POST_USER_CONFIG);
             expect(result.statusCode).equal(201);
             expect(result.headers['content-type']).to.equals('application/vnd.api+json');
             expect(result.headers.location).to.exists();
         });
+
 
         test('return 201 on success', async () => {
 
@@ -60,6 +67,7 @@ experiment('users', () => {
             expect(payload.data).to.includes(['id', 'types', 'attributes', 'links']);
             expect(result.headers.location).to.be.a.string();
         });
+
 
         test('return 409 if username is already taken', async () => {
 
@@ -83,6 +91,7 @@ experiment('users', () => {
             expect(payload.links).to.includes('self').and.exists();
         });
 
+
         test('return 404 is user is not found', async () => {
 
             delete GET_USER_CONFIG.headers['content-type'];
@@ -92,6 +101,7 @@ experiment('users', () => {
             expect(result.statusCode).equals(404);
             expect(result.headers['content-type']).equals('application/vnd.api+json');
         });
+
 
         test('bad request', async () => {
 
@@ -103,10 +113,10 @@ experiment('users', () => {
         });
     });
 
+
     experiment('GET /users', () => {
 
         test('retun 200 on success', async () => {
-
 
             const result = await server.inject(GET_ALL_USER_CONFIG);
             expect(result.statusCode).equals(200);

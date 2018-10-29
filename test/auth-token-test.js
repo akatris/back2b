@@ -1,55 +1,56 @@
 'use strict';
 
-const Lab = require('lab');
-const { expect } = require('code');
 
+const EstablishmentFixtures = require('./fixtures/establishments');
+const Lab = require('lab');
 const Server = require('../index');
+const UserFixtures = require('./fixtures/users');
+
+
+const { expect } = require('code');
 const { sign } = require('../lib/token');
-const { createEstablishment } = require('./_fixture/establishments');
+
 
 const { before, beforeEach, experiment, test } = (exports.lab = Lab.script());
+
+
 experiment('/auth/token', () => {
 
+
     let server = null;
-    const user = {
-        username: 'useraka',
-        password: 'password'
-    };
+
+    let userId = null;
     let validToken = '';
+
+    let POST_USER_CONFIG = {};
+    let POST_ESTABLISHMENT_CONFIG = {};
+
 
     before(async () => {
 
         server = await Server();
     });
 
+
     beforeEach(async () => {
 
         await server.mongodb.reset();
-        const result = await server.inject({
-            method: 'POST',
-            url: '/users',
-            headers: {
-                'Content-Type': 'application/vnd.api+json',
-                accept: 'application/vnd.api+json'
-            },
-            payload: {
-                data: {
-                    type: 'users',
-                    attributes: {
-                        username: user.username,
-                        password: user.password
-                    }
-                }
-            }
-        });
-        const userId = JSON.parse(result.payload).data.id;
-        user.id = userId;
-        validToken = await sign({ username: user.username, id: userId });
+
+        POST_USER_CONFIG = UserFixtures.post();
+        const result = await server.inject(POST_USER_CONFIG);
+        userId = JSON.parse(result.payload).data.id;
+
+        validToken = await sign({ username: POST_USER_CONFIG.payload.data.attributes.username, id: userId });
+
+        POST_ESTABLISHMENT_CONFIG = EstablishmentFixtures.post(userId, `Bearer ${validToken}`);
     });
+
 
     experiment('POST /auth/token', () => {
 
+
         test('Return 201 on succes', async () => {
+
 
             const result = await server.inject({
                 method: 'post',
@@ -62,12 +63,13 @@ experiment('/auth/token', () => {
                     data: {
                         type: 'token',
                         attributes: {
-                            username: user.username,
-                            password: user.password
+                            username: POST_USER_CONFIG.payload.data.attributes.username,
+                            password: POST_USER_CONFIG.payload.data.attributes.password
                         }
                     }
                 }
             });
+
 
             expect(result.statusCode).equals(201);
             expect(result.headers['content-type']).equals('application/vnd.api+json');
@@ -77,33 +79,35 @@ experiment('/auth/token', () => {
         });
     });
 
+
     experiment('Token authentication', () => {
+
 
         test('try to access protected route with a token', async () => {
 
-            const authorization = `Bearer ${validToken}`;
-            const result = await server.inject(createEstablishment(user.username, 100000, user.id, authorization));
+            const result = await server.inject(POST_ESTABLISHMENT_CONFIG);
             expect(result.statusCode).equals(201);
-            expect(result.request.auth.credentials.id).equals(user.id);
+            expect(result.request.auth.credentials.id).equals(userId);
             expect(result.headers['content-type']).equals('application/vnd.api+json');
         });
 
+
         test('Should throw invalid when invalid token', async () => {
 
-            let authorization = `${validToken}`;
-            let result = await server.inject(createEstablishment(user.username, 100000, user.id, authorization));
+            POST_ESTABLISHMENT_CONFIG.headers.authorization = `${validToken}`;
+            let result = await server.inject(POST_ESTABLISHMENT_CONFIG);
             expect(result.statusCode).equals(401);
             expect(result.headers['content-type']).equals('application/vnd.api+json');
 
-            authorization = `bearer ${validToken}`;
-            result = await server.inject(createEstablishment(user.username, 100000, user.id, authorization));
+            POST_ESTABLISHMENT_CONFIG.headers.authorization = `bearer ${validToken}`;
+            result = await server.inject(POST_ESTABLISHMENT_CONFIG);
             expect(result.statusCode).equals(401);
             expect(result.headers['content-type']).equals('application/vnd.api+json');
 
-            const token = await sign({ username: 'hello', id: user.id });
-            authorization = `Bearer ${token}`;
+            const token = await sign({ username: 'hello', id: userId });
+            POST_ESTABLISHMENT_CONFIG.headers.authorization = `Bearer ${token}`;
 
-            result = await server.inject(createEstablishment(user.username, 100000, user.id, authorization));
+            result = await server.inject(POST_ESTABLISHMENT_CONFIG);
             expect(result.statusCode).equals(401);
             expect(result.headers['content-type']).equals('application/vnd.api+json');
         });

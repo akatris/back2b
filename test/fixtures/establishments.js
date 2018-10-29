@@ -1,6 +1,10 @@
 'use strict';
 
-const createEstablishment = (name, initialFunds, user_id, authorization = null) => ({
+
+const Faker = require('faker');
+
+
+const post = (id, authorization) => ({
     method: 'post',
     url: '/establishments',
     headers: {
@@ -11,12 +15,16 @@ const createEstablishment = (name, initialFunds, user_id, authorization = null) 
     payload: {
         data: {
             type: 'establishments',
-            attributes: { name, initialFunds, user_id },
+            attributes: {
+                name: Faker.name.jobArea,
+                initialFunds: Faker.random.number,
+                user_id: id
+            },
             relationships: {
                 user: {
                     data: {
                         type: 'user',
-                        id: user_id
+                        id
                     }
                 }
             }
@@ -24,4 +32,5 @@ const createEstablishment = (name, initialFunds, user_id, authorization = null) 
     }
 });
 
-module.exports = { createEstablishment };
+
+module.exports = { post };

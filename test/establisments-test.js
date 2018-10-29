@@ -4,14 +4,16 @@ const Lab = require('lab');
 const { expect } = require('code');
 
 const Server = require('../index');
-const { createUser } = require('./_fixture/users');
-const { createEstablishment } = require('./_fixture/establishments');
+const UserFixtures = require('./fixtures/users');
+const EstablishmentFixtures = require('./fixtures/establishments');
 
 const { before, beforeEach, experiment, test } = exports.lab = Lab.script();
 
 experiment('establishment', () => {
 
     let server = null;
+
+    let ESTABLISHMENT_POST_CONFIG = {};
 
     before(async () => {
 
@@ -20,16 +22,20 @@ experiment('establishment', () => {
 
     beforeEach(async () => {
 
+        const user = await server.inject(UserFixtures.post());
+        const userPayload = JSON.parse(user.payload);
+
         await server.mongodb.reset();
+        ESTABLISHMENT_POST_CONFIG = EstablishmentFixtures.post(userPayload.data.id);
     });
 
     experiment('POST /establishments', () => {
 
         test('returns 201 success', async () => {
 
-            const user = await server.inject(createUser('test', 'password'));
+            const user = await server.inject(UserFixtures.post());
             const userPayload = JSON.parse(user.payload);
-            const result = await server.inject(createEstablishment('establishment', 100000, userPayload.data.id));
+            const result = await server.inject(ESTABLISHMENT_POST_CONFIG);
             const payload = JSON.parse(result.payload);
 
             expect(result.statusCode).equals(201);

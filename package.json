@@ -9,6 +9,7 @@
     "hapi": "17.x.x",
     "hapi-auto-route": "2.x.x",
     "hoek": "^5.0.4",
+    "jsonwebtoken": "^8.3.0",
     "mongodb": "3.x.x",
     "pluralize": "^7.0.0",
     "vision": "^5.4.0"

@@ -3,6 +3,7 @@
 const Hapi = require('hapi');
 const HapiAutoRoute = require('hapi-auto-route');
 const MongoDB = require('./plugins/mongodb');
+const Scheme = require('./lib/schemes');
 
 const internals = {};
 
@@ -25,6 +26,9 @@ const init = async () => {
         host: 'localhost',
         port: 4000
     });
+
+    server.auth.scheme('json-web-token', Scheme);
+    server.auth.strategy('token', 'json-web-token');
 
     await server.register([{
         plugin: HapiAutoRoute

@@ -7,26 +7,34 @@ const create = {
 
         const db = request.server.plugins.mongodb.database;
         const payload = request.payload;
-        console.log(payload)
         const { insertedId } = await db.collection('establishments').insertOne({
             name: payload.data.attributes.name,
             funds: payload.data.attributes.initialFounds,
-            user_id: payload.data.relationships.user.id
+            user_id: payload.data.relationships.user.data.id
         });
+        const location = `${request.server.info.uri}/establishments/${insertedId}`;
 
         const data = {
             id: insertedId,
             attributes: {
                 name: payload.data.attributes.name,
-                funds: payload.data.attributes.initialFounds,
-                user_id: payload.data.relationships.user.id
+                funds: payload.data.attributes.initialFunds,
+                user_id: payload.data.relationships.user.data.id
             },
-            types: 'establishments'
-        }
+            type: 'establishments',
+            links: {
+                self: `${request.server.info.uri}/establishments/${insertedId}`
+            }
+        };
 
-        console.log(data)
-        return h.response({ data }).code(201).type('application/vnd.api+json');
+        return h.response({ data }).code(201).type('application/vnd.api+json')
+            .location(location);
     },
+    options: {
+        auth: {
+            strategy: 'token'
+        }
+    }
 };
 
 module.exports = [create];

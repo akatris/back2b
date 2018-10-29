@@ -5,6 +5,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "boom": "^7.2.0",
+    "faker": "^4.1.0",
     "hapi": "17.x.x",
     "hapi-auto-route": "2.x.x",
     "hoek": "^5.0.4",

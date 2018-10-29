@@ -1,22 +1,31 @@
 'use strict';
 
-const Database = require('../lib/database');
-const { ObjectId } = require('mongodb');
+const Joi = require('joi');
+const Hoek = require('hoek');
+const { MongoClient, ObjectId } = require('mongodb');
+
+
+const internals = {};
+
+
+internals.optionsSchema = Joi.object().keys({
+    uri: Joi.string().default('mongodb://localhost:27017/test'),
+    dbName: Joi.string().default('test')
+});
 
 exports.plugin = {
     name: 'mongodb',
     register: async (server, options) => {
 
-        const database = new Database(options.uri, options.dbName);
-        await database.connect();
+        const client = new MongoClient(options.uri, { useNewUrlParser: true });
+        await client.connect();
+        Hoek.assert(client.isConnected(), 'Could not connect to the database.');
 
-        const getDatabase = function () {
+        const database = client.db(options.dbName);
+        const reset = async () => await database.dropDatabase(database);  // Used drop database inside test.
 
-            return database.get();
-        };
-
-        server.expose('database', database.get());
-        server.expose('ObjectId', ObjectId);
-        server.method('getDatabase', getDatabase);
+        const decoration = { database, reset, ObjectId, client };
+        server.decorate('server', 'mongodb', decoration);
+        server.decorate('request', 'mongodb', decoration);
     }
 };

@@ -1,12 +1,12 @@
 'use strict';
 
 const Lab = require('lab');
+const Server = require('../index');
 const { expect } = require('code');
 
-const { init } = require('../index');
-const { reset } = require('../bootstrap-test');
 
 const { before, beforeEach, experiment, test } = exports.lab = Lab.script();
+
 
 experiment('users', () => {
 
@@ -15,7 +15,7 @@ experiment('users', () => {
     let headers = {};
     before(async () => {
 
-        server = await init();
+        server = await Server();
         requestPayload = {
             data: {
                 type: 'users',
@@ -29,7 +29,7 @@ experiment('users', () => {
 
     beforeEach(async () => {
 
-        await reset();
+        await server.mongodb.reset();
         headers = { accept: 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' };
     });
 

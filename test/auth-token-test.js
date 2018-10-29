@@ -3,8 +3,7 @@
 const Lab = require('lab');
 const { expect } = require('code');
 
-const { init } = require('../index');
-const { reset } = require('../bootstrap-test');
+const Server = require('../index');
 const { sign } = require('../lib/token');
 const { createEstablishment } = require('./_fixture/establishments');
 
@@ -20,12 +19,12 @@ experiment('/auth/token', () => {
 
     before(async () => {
 
-        server = await init();
+        server = await Server();
     });
 
     beforeEach(async () => {
 
-        await reset();
+        await server.mongodb.reset();
         const result = await server.inject({
             method: 'POST',
             url: '/users',

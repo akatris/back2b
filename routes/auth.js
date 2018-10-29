@@ -7,10 +7,10 @@ const create = {
     path: '/auth/token',
     handler: async (request, h) => {
 
-        const db = request.server.plugins.mongodb.database;
+        const { database } = request.mongodb;
         const payload = request.payload;
 
-        const userExists = await db.collection('users').findOne({ username: payload.data.attributes.username });
+        const userExists = await database.collection('users').findOne({ username: payload.data.attributes.username });
 
         const token = await sign({ username: userExists.username, id: userExists._id });
         const data = { id: token, type: 'token' };

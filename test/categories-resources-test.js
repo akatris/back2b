@@ -3,8 +3,7 @@
 const Lab = require('lab');
 const { expect } = require('code');
 
-const { init } = require('../index');
-const { reset } = require('../bootstrap-test');
+const Server = require('../index');
 
 const { before, beforeEach, experiment, test } = exports.lab = Lab.script();
 
@@ -15,12 +14,12 @@ experiment('/pcops/categories', () => {
 
     before(async () => {
 
-        server = await init();
+        server = await Server();
     });
 
     beforeEach(async () => {
 
-        await reset();
+        await server.mongodb.reset();
         category = { id: 1, name: 'category name', description: 'category description' };
     });
 

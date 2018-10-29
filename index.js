@@ -35,8 +35,8 @@ const init = async () => {
     }, {
         plugin: MongoDB,
         options: {
-            uri: process.env.NODE_ENV === 'test' ? process.env.TEST_MONGODB_URI : process.env.MONGODB_URI,
-            dbName: process.env.NODE_ENV === 'test' ? process.env.TEST_MONGODB_DBNAME : process.env.MONGODB_DBNAME
+            uri: process.env.MONGODB_URI,
+            dbName: process.env.MONGODB_DBNAME
         }
     }]);
 
@@ -45,4 +45,5 @@ const init = async () => {
     return server;
 };
 
-module.exports = { init };
+const Server = init;
+module.exports = Server;

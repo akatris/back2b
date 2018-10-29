@@ -11,20 +11,20 @@ const create = {
     path: '/users',
     handler: async function (request, h) {
 
-        const db = request.server.plugins.mongodb.database;
+        const { database } = request.mongodb;
         const user = request.payload.data.attributes;
         user.createdAt = Date.now();
         user.updatedAt = user.createdAt;
 
         // Check if username is taken.
-        const usernameOwner = await db.collection('users').findOne({ username: user.username });
+        const usernameOwner = await database.collection('users').findOne({ username: user.username });
         Hoek.assert(usernameOwner === null, Boom.conflict('Username is already taken.'));
 
         // hash password
         const hash = await Password.hash(user.password);
         user.hash = hash;
 
-        const { insertedId } = await db.collection('users').insertOne(user);
+        const { insertedId } = await database.collection('users').insertOne(user);
         const resourceLocation = `${request.server.info.uri}/users/${insertedId}`;
 
         const links = { self: resourceLocation };
@@ -54,11 +54,10 @@ const detail = {
     path: '/users/{id}',
     handler: async function (request, h) {
 
-        const db = request.server.methods.getDatabase();
-        const ObjectId = request.server.plugins.mongodb.ObjectId;
+        const { database, ObjectId } = request.mongodb;
         const params = request.params;
 
-        const user = await db.collection('users').findOne(ObjectId(params.id));
+        const user = await database.collection('users').findOne(ObjectId(params.id));
         Hoek.assert(user, Boom.notFound('User not found.'));
 
         const { _id, username, createdAt, updatedAt } = user;
@@ -83,9 +82,9 @@ const list = {
     path: '/users',
     handler: async function (request, h) {
 
-        const db = request.server.methods.getDatabase();
+        const { database } = request.mongodb;
 
-        const users = await db.collection('users').find().toArray();
+        const users = await database.collection('users').find().toArray();
         const data = users.map(({ _id, username, createdAt, updatedAt }) => {
 
             return { type: 'users', id: _id, attributes: { username, createdAt, updatedAt } };

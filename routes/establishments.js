@@ -5,9 +5,9 @@ const create = {
     path: '/establishments',
     handler: async function (request, h) {
 
-        const db = request.server.plugins.mongodb.database;
+        const { database } = request.mongodb;
         const payload = request.payload;
-        const { insertedId } = await db.collection('establishments').insertOne({
+        const { insertedId } = await database.collection('establishments').insertOne({
             name: payload.data.attributes.name,
             funds: payload.data.attributes.initialFounds,
             user_id: payload.data.relationships.user.data.id

@@ -1,18 +1,15 @@
 {
   "scripts": {
-    "test": "node -r ./bootstrap-test.js node_modules/.bin/lab"
+    "test": "node -r dotenv/config node_modules/.bin/lab"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "boom": "^7.2.0",
-    "handlebars": "^4.0.12",
     "hapi": "17.x.x",
     "hapi-auto-route": "2.x.x",
     "hoek": "^5.0.4",
     "jsonwebtoken": "^8.3.0",
-    "mongodb": "3.x.x",
-    "pluralize": "^7.0.0",
-    "vision": "^5.4.0"
+    "mongodb": "3.x.x"
   },
   "devDependencies": {
     "code": "5.x.x",

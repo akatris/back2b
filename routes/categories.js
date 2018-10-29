@@ -23,12 +23,12 @@ const create = {
     path: '/pcop/categories',
     handler: async function (request, h) {
 
-        const db = request.server.methods.getDatabase();
+        const { database } = request.mongodb;
         const { id, name, description } = request.payload;
 
-        await internals.checkUnicity(db, { id, name, description });
+        await internals.checkUnicity(database, { id, name, description });
 
-        const { insertedId } = await db.collection('categories').insertOne({ _id: id, name, description });
+        const { insertedId } = await database.collection('categories').insertOne({ _id: id, name, description });
         const data = { type: 'categories', attributes: { id: insertedId, name, description } };
         return h.response({ data }).code(201).message('Created');
     },
@@ -50,10 +50,10 @@ const detail = {
     path: '/pcop/categories/{id}',
     handler: async function (request, h) {
 
-        const db = request.server.methods.getDatabase();
+        const { database } = request.mongodb;
         const params = request.params;
 
-        const category = await db.collection('categories').findOne({ _id: params.id });
+        const category = await database.collection('categories').findOne({ _id: params.id });
 
         Hoek.assert(category !== null, Boom.notFound('Category with id 1 was not found.'));
 
@@ -76,8 +76,8 @@ const all = {
     path: '/pcop/categories',
     handler: async function (request, h) {
 
-        const db = request.server.methods.getDatabase();
-        const data = await db.collection('categories').find().toArray();
+        const { database } = request.mongodb;
+        const data = await database.collection('categories').find().toArray();
         return { data };
     },
     options: {

@@ -6,11 +6,11 @@ if (process.env.NODE_ENV !== 'production') {
     DotEnv.config();
 }
 
-const { init } = require('./index');
+const Server = require('./index');
 
 const start = async () => {
 
-    const server = await init();
+    const server = await Server();
     await server.start();
 };
 

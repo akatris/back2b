@@ -3,8 +3,7 @@
 const Lab = require('lab');
 const { expect } = require('code');
 
-const { init } = require('../index');
-const { reset } = require('../bootstrap-test');
+const Server = require('../index');
 const { createUser } = require('./_fixture/users');
 const { createEstablishment } = require('./_fixture/establishments');
 
@@ -16,12 +15,12 @@ experiment('establishment', () => {
 
     before(async () => {
 
-        server = await init();
+        server = await Server();
     });
 
     beforeEach(async () => {
 
-        await reset();
+        await server.mongodb.reset();
     });
 
     experiment('POST /establishments', () => {

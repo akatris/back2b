@@ -1,5 +1,9 @@
 'use strict';
 
+
+// TODO: Create an isolated environment for testing purpose.
+
+
 const Joi = require('joi');
 const Hoek = require('hoek');
 const { MongoClient, ObjectId } = require('mongodb');
@@ -12,6 +16,7 @@ internals.optionsSchema = Joi.object().keys({
     uri: Joi.string().default('mongodb://localhost:27017/test'),
     dbName: Joi.string().default('test')
 });
+
 
 exports.plugin = {
     name: 'mongodb',

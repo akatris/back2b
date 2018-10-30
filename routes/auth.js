@@ -1,6 +1,8 @@
 'use strict';
 
+
 const { sign } = require('../lib/token');
+
 
 const create = {
     method: 'POST',
@@ -10,6 +12,7 @@ const create = {
         const { database } = request.mongodb;
         const payload = request.payload;
 
+        // TODO: Throw 404 when user does not exists.
         const userExists = await database.collection('users').findOne({ username: payload.data.attributes.username });
 
         const token = await sign({ username: userExists.username, id: userExists._id });
@@ -18,5 +21,6 @@ const create = {
         return h.response({ data }).created().type('application/vnd.api+json');
     }
 };
+
 
 module.exports = [create];

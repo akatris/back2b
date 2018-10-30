@@ -1,10 +1,13 @@
 'use strict';
 
+
 const Joi = require('joi');
 const Boom = require('boom');
 const Hoek = require('hoek');
 
+
 const internals = {};
+
 
 internals.checkUnicity = async function (db, category) {
 
@@ -17,6 +20,7 @@ internals.checkUnicity = async function (db, category) {
         Hoek.assert(exists.name !== category.name, Boom.conflict('Category name is already taken.'));
     }
 };
+
 
 const create = {
     method: 'POST',
@@ -71,6 +75,7 @@ const detail = {
     }
 };
 
+
 const all = {
     method: 'GET',
     path: '/pcop/categories',
@@ -84,5 +89,6 @@ const all = {
         cors: true
     }
 };
+
 
 module.exports = [create, detail, all];

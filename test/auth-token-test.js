@@ -110,6 +110,11 @@ experiment('/auth/token', () => {
             result = await server.inject(POST_ESTABLISHMENT_CONFIG);
             expect(result.statusCode).equals(401);
             expect(result.headers['content-type']).equals('application/vnd.api+json');
+
+            // not authorized when any authorization header is set
+            delete POST_ESTABLISHMENT_CONFIG.headers.authorization;
+            result = await server.inject(POST_ESTABLISHMENT_CONFIG);
+            expect(result.statusCode).equals(401);
         });
     });
 });

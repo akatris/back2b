@@ -1,10 +1,19 @@
 'use strict';
 
+
+/**
+ * @todo:
+ *  - Update username and password
+ *  - Delete user
+ */
+
+
 const Hoek = require('hoek');
 const Boom = require('boom');
 const Joi = require('joi');
 const Password = require('../lib/password');
 const { validatePostHeaders, validateGetHeaders } = require('../lib/validator');
+
 
 const create = {
     method: 'POST',
@@ -49,6 +58,7 @@ const create = {
     }
 };
 
+
 const detail = {
     method: 'GET',
     path: '/users/{id}',
@@ -77,6 +87,7 @@ const detail = {
     }
 };
 
+
 const list = {
     method: 'GET',
     path: '/users',
@@ -95,5 +106,6 @@ const list = {
         return h.response({ data, links }).type('application/vnd.api+json');
     }
 };
+
 
 module.exports = [create, detail, list];

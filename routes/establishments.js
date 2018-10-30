@@ -1,5 +1,15 @@
 'use strict';
 
+
+/**
+ * @todo:
+ *  - Update admin
+ *  - Change username
+ *  - Add user to establishment
+ *  - Update funds
+ */
+
+
 const create = {
     method: 'POST',
     path: '/establishments',
@@ -36,5 +46,6 @@ const create = {
         }
     }
 };
+
 
 module.exports = [create];

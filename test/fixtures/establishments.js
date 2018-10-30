@@ -16,8 +16,8 @@ const post = (id, authorization) => ({
         data: {
             type: 'establishments',
             attributes: {
-                name: Faker.name.jobArea,
-                initialFunds: Faker.random.number,
+                name: Faker.name.jobArea(),
+                initialFunds: Faker.random.number(),
                 user_id: id
             },
             relationships: {

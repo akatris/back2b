@@ -34,7 +34,7 @@ const create = {
 
         const { insertedId } = await database.collection('categories').insertOne({ _id: id, name, description });
         const data = { type: 'categories', attributes: { id: insertedId, name, description } };
-        return h.response({ data }).code(201).message('Created');
+        return h.response({ data }).type('application/vnd.api+json').code(201).message('Created');
     },
     options: {
         cors: true,
@@ -63,7 +63,7 @@ const detail = {
 
         const { _id, name, description } = category;
         const data = { type: 'categories', attributes: { id: _id, name, description } };
-        return { data };
+        return h.response({ data }).type('application/vnd.api+json');
     },
     options: {
         cors: true,
@@ -83,7 +83,7 @@ const all = {
 
         const { database } = request.mongodb;
         const data = await database.collection('categories').find().toArray();
-        return { data };
+        return h.response({ data }).type('application/vnd.api+json');
     },
     options: {
         cors: true

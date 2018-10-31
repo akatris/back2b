@@ -30,6 +30,7 @@ experiment('/pcops/categories', () => {
             await server.inject({ method: 'POST', url: '/pcop/categories', payload: category });
             const result = await server.inject('/pcop/categories/1');
             expect(result.statusCode).to.equal(200);
+            expect(result.headers['content-type']).equals('application/vnd.api+json');
         });
 
         test('404 if the resource is not found', async () => {
@@ -48,6 +49,7 @@ experiment('/pcops/categories', () => {
             const payload = JSON.parse(result.payload);
             expect(result.statusCode).to.equal(200);
             expect(payload.data).to.be.an.array().and.have.length(1);
+            expect(result.headers['content-type']).equals('application/vnd.api+json');
         });
     });
 

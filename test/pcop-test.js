@@ -57,4 +57,19 @@ experiment('Pcop model', () => {
         expect(result.ok).equals(0);
         expect(result.type).equals('unknown');
     });
+
+    test('Pcop find', async () => {
+
+        let result = {};
+        pcop = new Pcop({ id: 1, name: 'pcop name', description: 'pcop description' }, server.mongodb.database);
+        await pcop.create();
+
+        result = await pcop.findById(1);
+        expect(result.pcop).object();
+        expect(result.found).boolean();
+
+        result = await pcop.findById(2);
+        expect(result.pcop).null();
+        expect(result.found).false();
+    });
 });

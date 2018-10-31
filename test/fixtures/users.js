@@ -16,7 +16,7 @@ const post = () => ({
             type: 'users',
             attributes: {
                 username: Faker.internet.userName(),
-                password: Faker.internet.password()
+                password: 'password'
             }
         }
     }
